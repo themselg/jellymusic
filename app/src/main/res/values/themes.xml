@@ -1,0 +1,12 @@
+<resources>
+    <!-- Base platform theme. The real Material 3 colors are applied in Compose
+         (AppTheme); this only governs the window before Compose draws and removes
+         the action bar. DayNight so the pre-Compose window background matches. -->
+    <!-- AppCompat parent is required because MainActivity is an AppCompatActivity (so
+         AppCompatDelegate per-app locale switching works on all API levels). Real colors
+         are still applied in Compose (AppTheme); this only styles the pre-Compose window. -->
+    <style name="Theme.JellyMusic" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+    </style>
+</resources>

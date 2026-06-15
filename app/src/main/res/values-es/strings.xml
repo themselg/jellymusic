@@ -1,0 +1,126 @@
+<resources>
+    <!-- Playback notification channel -->
+    <string name="playback_channel_name">Reproducción</string>
+
+    <!-- Login -->
+    <string name="login_title">Conéctate a Jellyfin</string>
+    <string name="login_server_hint">Dirección del servidor (https://…)</string>
+    <string name="login_username_hint">Usuario</string>
+    <string name="login_password_hint">Contraseña</string>
+    <string name="login_action">Iniciar sesión</string>
+
+    <!-- Library tabs -->
+    <string name="tab_albums">Álbumes</string>
+    <string name="tab_artists">Artistas</string>
+    <string name="tab_songs">Canciones</string>
+    <string name="tab_playlists">Listas</string>
+    <string name="tab_favorites">Favoritos</string>
+
+    <!-- Common -->
+    <string name="search">Buscar</string>
+    <string name="settings">Ajustes</string>
+    <string name="library">Biblioteca</string>
+    <string name="profile">Perfil</string>
+    <string name="liked_songs">Canciones gustadas</string>
+    <string name="downloads">Descargas</string>
+    <string name="lyrics">Letras</string>
+    <string name="no_lyrics">Sin letras</string>
+    <string name="about">Acerca de</string>
+    <string name="version">Versión</string>
+    <string name="stat_playlists">Listas</string>
+    <string name="stat_liked">Gustadas</string>
+    <string name="download">Descargar</string>
+    <string name="remove_download">Quitar descarga</string>
+    <string name="downloaded">Descargada</string>
+    <string name="downloading">Descargando…</string>
+    <string name="play">Reproducir</string>
+    <string name="shuffle">Aleatorio</string>
+    <string name="sign_out">Cerrar sesión</string>
+    <string name="home">Inicio</string>
+    <string name="retry">Reintentar</string>
+    <string name="favorite">Favorito</string>
+    <string name="unfavorite">Quitar de favoritos</string>
+    <string name="cd_album_art">Carátula</string>
+    <string name="cd_play_pause">Reproducir o pausar</string>
+    <string name="cd_next">Siguiente pista</string>
+    <string name="cd_previous">Pista anterior</string>
+    <string name="cd_repeat">Repetir</string>
+    <string name="cd_shuffle">Aleatorio</string>
+    <string name="cd_back">Atrás</string>
+    <string name="cd_queue">Cola</string>
+
+    <!-- States -->
+    <string name="loading">Cargando…</string>
+    <string name="error_generic">Algo salió mal</string>
+    <string name="empty_generic">Aún no hay nada aquí</string>
+
+    <!-- Library -->
+    <string name="recently_added">Añadido recientemente</string>
+    <string name="empty_albums">Sin álbumes</string>
+    <string name="empty_artists">Sin artistas</string>
+    <string name="empty_songs">Sin canciones</string>
+    <string name="empty_playlists">Sin listas</string>
+    <string name="empty_favorites">Aún no hay favoritos</string>
+
+    <!-- Search -->
+    <string name="search_hint">Buscar música</string>
+    <string name="search_prompt">Busca artistas, álbumes y canciones</string>
+    <string name="search_no_results">No se encontraron resultados</string>
+
+    <!-- Detail -->
+    <string name="albums">Álbumes</string>
+    <string name="top_songs">Canciones destacadas</string>
+    <string name="songs_count">%1$d canciones</string>
+
+    <!-- Now playing -->
+    <string name="now_playing">Reproduciendo ahora</string>
+    <string name="up_next">A continuación</string>
+    <string name="queue">Cola</string>
+    <string name="queue_source">Tu cola</string>
+
+    <!-- Gestión de listas -->
+    <string name="create_playlist">Nueva lista</string>
+    <string name="playlist_name_hint">Nombre de la lista</string>
+    <string name="action_create">Crear</string>
+    <string name="action_cancel">Cancelar</string>
+    <string name="action_rename">Renombrar</string>
+    <string name="action_delete">Eliminar</string>
+    <string name="add_to_playlist">Añadir a la lista</string>
+    <string name="remove_from_playlist">Quitar de la lista</string>
+    <string name="delete_playlist_title">¿Eliminar la lista?</string>
+    <string name="delete_playlist_message">Esto no se puede deshacer.</string>
+    <string name="added_to_playlist">Añadido a la lista</string>
+    <string name="cd_more">Más opciones</string>
+
+    <!-- Cast -->
+    <string name="cast">Transmitir</string>
+    <string name="cast_to">Transmitir a</string>
+    <string name="stop_casting">Detener transmisión</string>
+    <string name="close">Cerrar</string>
+
+    <!-- Settings -->
+    <string name="settings_color_mode">Tema de color</string>
+    <string name="settings_color_mode_caption">Elige cómo JellyMusic escoge sus colores.</string>
+    <string name="color_mode_system">Material You</string>
+    <string name="color_mode_system_caption">Sigue los colores del fondo de pantalla del dispositivo.</string>
+    <string name="color_mode_album_art">Carátula</string>
+    <string name="color_mode_album_art_caption">Recolorea toda la app según la portada en reproducción.</string>
+    <string name="color_mode_static">Marca</string>
+    <string name="color_mode_static_caption">Una paleta fija de JellyMusic.</string>
+    <string name="settings_appearance">Apariencia</string>
+    <string name="dark_mode_system">Predeterminado del sistema</string>
+    <string name="dark_mode_light">Claro</string>
+    <string name="dark_mode_dark">Oscuro</string>
+    <string name="settings_amoled">Negro AMOLED</string>
+    <string name="settings_amoled_caption">Usa fondos negros puros en modo oscuro.</string>
+    <string name="settings_account">Cuenta</string>
+
+    <!-- Settings: language -->
+    <string name="settings_language">Idioma</string>
+    <string name="language_system">Predeterminado del sistema</string>
+
+    <plurals name="song_count">
+        <item quantity="one">%1$d canción</item>
+        <item quantity="other">%1$d canciones</item>
+    </plurals>
+</resources>
