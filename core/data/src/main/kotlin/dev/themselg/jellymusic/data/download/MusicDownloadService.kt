@@ -6,7 +6,7 @@ import androidx.media3.exoplayer.offline.DownloadManager
 import androidx.media3.exoplayer.offline.DownloadService
 import androidx.media3.exoplayer.scheduler.Scheduler
 import dagger.hilt.android.EntryPointAccessors
-import dev.themselg.jellymusic.R
+import dev.themselg.jellymusic.data.R
 
 /**
  * Foreground service that runs Media3 downloads. Instantiated by the system, so it pulls its
