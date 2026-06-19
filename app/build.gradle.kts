@@ -50,6 +50,9 @@ android {
 }
 
 dependencies {
+    // Modules
+    implementation(project(":core:domain"))
+
     // AndroidX core
     implementation(libs.androidx.core.ktx)
     // appcompat: only for AppCompatDelegate per-app locale switching (back-compat below API 33)

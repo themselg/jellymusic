@@ -50,7 +50,7 @@ class LyricsViewModel @Inject constructor(
     ) { lyricsState, position ->
         val lyrics = (lyricsState as? LyricsUiState.Loaded)?.lyrics
         if (lyrics == null || !lyrics.synced) return@combine -1
-        lyrics.lines.indexOfLast { it.startMs != null && it.startMs <= position }
+        lyrics.lines.indexOfLast { line -> line.startMs?.let { it <= position } == true }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), -1)
 
     init {

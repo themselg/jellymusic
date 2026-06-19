@@ -26,3 +26,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "JellyMusic"
 include(":app")
+include(":core:domain")
