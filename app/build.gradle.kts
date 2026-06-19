@@ -53,6 +53,7 @@ dependencies {
     // Modules
     implementation(project(":core:domain"))
     implementation(project(":core:data"))
+    implementation(project(":core:player"))
 
     // AndroidX core
     implementation(libs.androidx.core.ktx)
