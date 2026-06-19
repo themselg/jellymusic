@@ -26,6 +26,7 @@ import dev.themselg.jellymusic.domain.model.Song
 import dev.themselg.jellymusic.ui.components.ErrorState
 import dev.themselg.jellymusic.ui.components.LoadingState
 import dev.themselg.jellymusic.ui.components.SongRow
+import dev.themselg.jellymusic.ui.components.rememberDownloadController
 import dev.themselg.jellymusic.ui.feature.playlist.AddToPlaylistSheet
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -37,6 +38,7 @@ fun AlbumDetailScreen(
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     var addTarget by remember { mutableStateOf<Song?>(null) }
+    val downloadController = rememberDownloadController()
 
     Scaffold(
         topBar = {
@@ -76,6 +78,7 @@ fun AlbumDetailScreen(
                             onPlay = { viewModel.play(0) },
                             onShuffle = viewModel::shuffle,
                             onSubtitleClick = viewModel.artistId()?.let { id -> { onArtistClick(id) } },
+                            onDownload = { downloadController.download(detail.tracks) },
                         )
                     }
                     itemsIndexed(detail.tracks, key = { _, song -> song.id }) { index, song ->

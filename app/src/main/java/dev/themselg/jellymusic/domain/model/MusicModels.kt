@@ -1,5 +1,7 @@
 package dev.themselg.jellymusic.domain.model
 
+import kotlinx.serialization.Serializable
+
 /**
  * Domain models. These are decoupled from the Jellyfin SDK DTOs: the data layer maps
  * SDK `BaseItemDto`s into these. Ids are the Jellyfin item ids as plain strings.
@@ -23,6 +25,7 @@ data class Artist(
     val artworkUrl: String?,
 )
 
+@Serializable
 data class Song(
     val id: String,
     val name: String,

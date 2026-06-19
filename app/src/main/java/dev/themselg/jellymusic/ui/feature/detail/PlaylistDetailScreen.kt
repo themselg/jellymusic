@@ -33,6 +33,7 @@ import dev.themselg.jellymusic.ui.components.ErrorState
 import dev.themselg.jellymusic.ui.components.LoadingState
 import dev.themselg.jellymusic.ui.components.PlaylistNameDialog
 import dev.themselg.jellymusic.ui.components.SongRow
+import dev.themselg.jellymusic.ui.components.rememberDownloadController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -42,6 +43,7 @@ fun PlaylistDetailScreen(
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val title = (state as? DetailUiState.Success)?.detail?.title.orEmpty()
+    val downloadController = rememberDownloadController()
 
     var menuOpen by remember { mutableStateOf(false) }
     var showRename by remember { mutableStateOf(false) }
@@ -97,6 +99,7 @@ fun PlaylistDetailScreen(
                             artworkUrl = detail.artworkUrl,
                             onPlay = { viewModel.play(0) },
                             onShuffle = viewModel::shuffle,
+                            onDownload = { downloadController.download(detail.tracks) },
                         )
                     }
                     itemsIndexed(

@@ -9,6 +9,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Download
+import androidx.compose.material.icons.rounded.DownloadDone
+import androidx.compose.material.icons.rounded.Downloading
 import androidx.compose.material.icons.rounded.Equalizer
 import androidx.compose.material.icons.rounded.Favorite
 import androidx.compose.material.icons.rounded.FavoriteBorder
@@ -29,7 +32,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dev.themselg.jellymusic.R
+import dev.themselg.jellymusic.data.download.DownloadStatus
 import dev.themselg.jellymusic.domain.model.Song
 
 /**
@@ -109,28 +114,55 @@ fun SongRow(
                 )
             }
         }
-        if (onAddToPlaylist != null || onRemoveFromPlaylist != null) {
-            var menuOpen by remember { mutableStateOf(false) }
-            Box {
-                IconButton(onClick = { menuOpen = true }) {
-                    Icon(
-                        Icons.Rounded.MoreVert,
-                        contentDescription = stringResource(R.string.cd_more),
+        // Download is available on every song row via the shared controller.
+        val downloadController = rememberDownloadController()
+        val downloads by downloadController.items.collectAsStateWithLifecycle()
+        val status = downloads.firstOrNull { it.song.id == song.id }?.status ?: DownloadStatus.NONE
+
+        if (status == DownloadStatus.DOWNLOADED) {
+            Icon(
+                Icons.Rounded.DownloadDone,
+                contentDescription = stringResource(R.string.downloaded),
+                tint = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.size(18.dp),
+            )
+        }
+
+        var menuOpen by remember { mutableStateOf(false) }
+        Box {
+            IconButton(onClick = { menuOpen = true }) {
+                Icon(Icons.Rounded.MoreVert, contentDescription = stringResource(R.string.cd_more))
+            }
+            DropdownMenu(expanded = menuOpen, onDismissRequest = { menuOpen = false }) {
+                onAddToPlaylist?.let { action ->
+                    DropdownMenuItem(
+                        text = { Text(stringResource(R.string.add_to_playlist)) },
+                        onClick = { menuOpen = false; action() },
                     )
                 }
-                DropdownMenu(expanded = menuOpen, onDismissRequest = { menuOpen = false }) {
-                    onAddToPlaylist?.let { action ->
-                        DropdownMenuItem(
-                            text = { Text(stringResource(R.string.add_to_playlist)) },
-                            onClick = { menuOpen = false; action() },
-                        )
-                    }
-                    onRemoveFromPlaylist?.let { action ->
-                        DropdownMenuItem(
-                            text = { Text(stringResource(R.string.remove_from_playlist)) },
-                            onClick = { menuOpen = false; action() },
-                        )
-                    }
+                onRemoveFromPlaylist?.let { action ->
+                    DropdownMenuItem(
+                        text = { Text(stringResource(R.string.remove_from_playlist)) },
+                        onClick = { menuOpen = false; action() },
+                    )
+                }
+                when (status) {
+                    DownloadStatus.DOWNLOADED -> DropdownMenuItem(
+                        text = { Text(stringResource(R.string.remove_download)) },
+                        leadingIcon = { Icon(Icons.Rounded.DownloadDone, null) },
+                        onClick = { menuOpen = false; downloadController.remove(song.id) },
+                    )
+                    DownloadStatus.DOWNLOADING -> DropdownMenuItem(
+                        text = { Text(stringResource(R.string.downloading)) },
+                        leadingIcon = { Icon(Icons.Rounded.Downloading, null) },
+                        enabled = false,
+                        onClick = {},
+                    )
+                    else -> DropdownMenuItem(
+                        text = { Text(stringResource(R.string.download)) },
+                        leadingIcon = { Icon(Icons.Rounded.Download, null) },
+                        onClick = { menuOpen = false; downloadController.download(song) },
+                    )
                 }
             }
         }

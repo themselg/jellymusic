@@ -21,8 +21,20 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        // Self-signed release key (checked into the repo for this personal build). For a public
+        // release, move these to a private keystore.properties / environment variables instead.
+        create("release") {
+            storeFile = file("jellymusic-release.keystore")
+            storePassword = "REDACTED"
+            keyAlias = "jellymusic"
+            keyPassword = "REDACTED"
+        }
+    }
+
     buildTypes {
         release {
+            signingConfig = signingConfigs.getByName("release")
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(
@@ -89,6 +101,7 @@ dependencies {
     // Media3
     implementation(libs.androidx.media3.exoplayer)
     implementation(libs.androidx.media3.datasource)
+    implementation(libs.androidx.media3.database)
     implementation(libs.androidx.media3.session)
     implementation(libs.androidx.media3.ui)
 

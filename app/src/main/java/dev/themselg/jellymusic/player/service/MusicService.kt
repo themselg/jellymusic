@@ -7,6 +7,8 @@ import androidx.media3.common.C
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.datasource.DefaultDataSource
+import androidx.media3.datasource.cache.CacheDataSource
+import androidx.media3.datasource.cache.SimpleCache
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
 import androidx.media3.session.DefaultMediaNotificationProvider
@@ -19,6 +21,7 @@ import com.google.common.util.concurrent.Futures
 import com.google.common.util.concurrent.ListenableFuture
 import dev.themselg.jellymusic.R
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 /**
  * The Media3 [MediaLibraryService] that owns the actual [ExoPlayer]. The UI never talks to
@@ -30,6 +33,8 @@ import dagger.hilt.android.AndroidEntryPoint
  */
 @AndroidEntryPoint
 class MusicService : MediaLibraryService() {
+
+    @Inject lateinit var downloadCache: SimpleCache
 
     private lateinit var player: ExoPlayer
     private lateinit var mediaLibrarySession: MediaLibrarySession
@@ -43,9 +48,15 @@ class MusicService : MediaLibraryService() {
             .setContentType(C.AUDIO_CONTENT_TYPE_MUSIC)
             .build()
 
-        // Explicit DefaultDataSource.Factory so the ExoPlayer can resolve the http(s)
-        // Jellyfin stream URLs carried on each MediaItem.
-        val dataSourceFactory = DefaultDataSource.Factory(this)
+        // Read-only CacheDataSource over the shared download cache: a song that's been
+        // downloaded plays from disk (offline); otherwise it streams from Jellyfin. Write is
+        // disabled here so only the DownloadManager populates the cache.
+        val upstream = DefaultDataSource.Factory(this)
+        val dataSourceFactory = CacheDataSource.Factory()
+            .setCache(downloadCache)
+            .setUpstreamDataSourceFactory(upstream)
+            .setCacheWriteDataSinkFactory(null)
+            .setFlags(CacheDataSource.FLAG_IGNORE_CACHE_ON_ERROR)
         val mediaSourceFactory = DefaultMediaSourceFactory(dataSourceFactory)
 
         player = ExoPlayer.Builder(this)
