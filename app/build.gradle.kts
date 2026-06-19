@@ -1,20 +1,13 @@
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.jellymusic.android.application)
     alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.ksp)
-    alias(libs.plugins.hilt)
 }
 
 android {
     namespace = "dev.themselg.jellymusic"
-    compileSdk = 35
 
     defaultConfig {
         applicationId = "dev.themselg.jellymusic"
-        minSdk = 31
-        targetSdk = 35
         versionCode = 1
         versionName = "0.1.0"
 
@@ -44,17 +37,8 @@ android {
         }
     }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
-    }
-
-    kotlin {
-        jvmToolchain(21)
-    }
-
     buildFeatures {
-        compose = true
+        // compose is enabled by the convention plugin; buildConfig for BuildConfig.VERSION_NAME.
         buildConfig = true
     }
 
