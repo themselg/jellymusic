@@ -19,7 +19,7 @@ import com.google.android.gms.cast.framework.CastContext
 import com.google.common.collect.ImmutableList
 import com.google.common.util.concurrent.Futures
 import com.google.common.util.concurrent.ListenableFuture
-import dev.themselg.jellymusic.R
+import dev.themselg.jellymusic.player.R
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

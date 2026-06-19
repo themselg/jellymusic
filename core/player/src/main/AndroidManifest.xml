@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Google Cast device discovery -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- Keep playback alive while backgrounded -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <application>
+        <!-- Media3 playback service. MediaLibraryService (not just MediaSessionService)
+             so Android Auto / Wear browsing can be added later without rework. -->
+        <service
+            android:name=".service.MusicService"
+            android:exported="true"
+            android:foregroundServiceType="mediaPlayback">
+            <intent-filter>
+                <action android:name="androidx.media3.session.MediaLibraryService" />
+                <action android:name="android.media.browse.MediaBrowserService" />
+            </intent-filter>
+        </service>
+
+        <!-- Google Cast: points the Cast SDK at our OptionsProvider. -->
+        <meta-data
+            android:name="com.google.android.gms.cast.framework.OPTIONS_PROVIDER_CLASS_NAME"
+            android:value="dev.themselg.jellymusic.player.cast.JellyCastOptionsProvider" />
+    </application>
+
+</manifest>
