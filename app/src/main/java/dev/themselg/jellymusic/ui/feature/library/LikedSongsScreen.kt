@@ -27,6 +27,7 @@ import dev.themselg.jellymusic.domain.model.Song
 import dev.themselg.jellymusic.ui.components.ErrorState
 import dev.themselg.jellymusic.ui.components.LoadingState
 import dev.themselg.jellymusic.ui.components.SongRow
+import dev.themselg.jellymusic.ui.components.rememberDownloadController
 import dev.themselg.jellymusic.ui.feature.detail.CollectionHeader
 import dev.themselg.jellymusic.ui.feature.playlist.AddToPlaylistSheet
 
@@ -38,6 +39,7 @@ fun LikedSongsScreen(
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     var addTarget by remember { mutableStateOf<Song?>(null) }
+    val downloadController = rememberDownloadController()
 
     Scaffold(
         topBar = {
@@ -72,6 +74,7 @@ fun LikedSongsScreen(
                             artworkUrl = null,
                             onPlay = { viewModel.play(0) },
                             onShuffle = viewModel::shuffle,
+                            onDownload = { downloadController.download(songs) },
                         )
                     }
                     itemsIndexed(songs, key = { _, song -> song.id }) { index, song ->

@@ -8,9 +8,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Download
 import androidx.compose.material.icons.rounded.PlayArrow
 import androidx.compose.material.icons.rounded.Shuffle
 import androidx.compose.material3.Button
+import androidx.compose.material3.FilledTonalIconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -34,6 +36,7 @@ fun CollectionHeader(
     onShuffle: () -> Unit,
     modifier: Modifier = Modifier,
     onSubtitleClick: (() -> Unit)? = null,
+    onDownload: (() -> Unit)? = null,
 ) {
     Column(
         modifier = modifier
@@ -71,6 +74,11 @@ fun CollectionHeader(
             OutlinedButton(onClick = onShuffle, modifier = Modifier.weight(1f)) {
                 Icon(Icons.Rounded.Shuffle, contentDescription = null)
                 Text(stringResource(R.string.shuffle), modifier = Modifier.padding(start = 6.dp))
+            }
+            onDownload?.let {
+                FilledTonalIconButton(onClick = it) {
+                    Icon(Icons.Rounded.Download, contentDescription = stringResource(R.string.download))
+                }
             }
         }
     }

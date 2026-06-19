@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dev.themselg.jellymusic.domain.model.Album
 import dev.themselg.jellymusic.domain.model.Artist
 import dev.themselg.jellymusic.domain.model.Song
+import dev.themselg.jellymusic.data.session.JellyfinUrls
 import dev.themselg.jellymusic.data.session.SessionManager
 import dev.themselg.jellymusic.domain.repository.LibraryRepository
 import dev.themselg.jellymusic.player.PlayerController
@@ -43,6 +44,7 @@ class HomeViewModel @Inject constructor(
     private val libraryRepository: LibraryRepository,
     private val playerController: PlayerController,
     sessionManager: SessionManager,
+    urls: JellyfinUrls,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(HomeUiState())
@@ -52,6 +54,11 @@ class HomeViewModel @Inject constructor(
     val serverName: StateFlow<String> = sessionManager.session
         .map { it?.serverName?.takeIf(String::isNotBlank).orEmpty() }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), "")
+
+    /** Avatar shown on the profile button; null until signed in. */
+    val userImageUrl: StateFlow<String?> = sessionManager.session
+        .map { if (it != null) urls.userImageUrl() else null }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
 
     init {
         loadAlbums()
