@@ -17,6 +17,13 @@ internal fun Project.configureKotlinAndroid(
             sourceCompatibility = JavaVersion.VERSION_21
             targetCompatibility = JavaVersion.VERSION_21
         }
+        // FOSS vs Chromecast editions. Declared in every Android module so cross-module
+        // variant matching is automatic; app-specific id/version suffixes live in :app.
+        flavorDimensions += "edition"
+        productFlavors {
+            create("libre")
+            create("proprietary")
+        }
     }
     extensions.configure<KotlinAndroidProjectExtension> {
         jvmToolchain(21)

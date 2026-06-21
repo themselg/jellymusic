@@ -25,6 +25,20 @@ android {
         }
     }
 
+    productFlavors {
+        // libre: FOSS build, no Google Play Services / Chromecast. Distinct id so it can be
+        // installed alongside the proprietary build.
+        getByName("libre") {
+            dimension = "edition"
+            applicationIdSuffix = ".libre"
+            versionNameSuffix = "-libre"
+        }
+        getByName("proprietary") {
+            dimension = "edition"
+            versionNameSuffix = "-proprietary"
+        }
+    }
+
     buildTypes {
         release {
             signingConfig = signingConfigs.getByName("release")
@@ -91,8 +105,8 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)
 
-    // Cast: MainActivity routes the volume keys to the active Cast session
-    implementation(libs.play.services.cast.framework)
+    // Cast: MainActivity routes the volume keys to the active Cast session — proprietary only
+    "proprietaryImplementation"(libs.play.services.cast.framework)
 
     // Testing
     testImplementation(libs.junit)

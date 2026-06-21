@@ -1,7 +1,5 @@
 package dev.themselg.jellymusic.player.service
 
-import androidx.media3.cast.CastPlayer
-import androidx.media3.cast.SessionAvailabilityListener
 import androidx.media3.common.AudioAttributes
 import androidx.media3.common.C
 import androidx.media3.common.MediaItem
@@ -15,11 +13,11 @@ import androidx.media3.session.DefaultMediaNotificationProvider
 import androidx.media3.session.LibraryResult
 import androidx.media3.session.MediaLibraryService
 import androidx.media3.session.MediaSession
-import com.google.android.gms.cast.framework.CastContext
 import com.google.common.collect.ImmutableList
 import com.google.common.util.concurrent.Futures
 import com.google.common.util.concurrent.ListenableFuture
 import dev.themselg.jellymusic.player.R
+import dev.themselg.jellymusic.player.cast.CastBridge
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -38,7 +36,7 @@ class MusicService : MediaLibraryService() {
 
     private lateinit var player: ExoPlayer
     private lateinit var mediaLibrarySession: MediaLibrarySession
-    private var castPlayer: CastPlayer? = null
+    private var castBridge: CastBridge? = null
 
     override fun onCreate() {
         super.onCreate()
@@ -79,28 +77,12 @@ class MusicService : MediaLibraryService() {
             .build()
         setMediaNotificationProvider(notificationProvider)
 
-        initCast()
+        // Cast is provided per build flavor: the proprietary flavor wires a CastPlayer that
+        // swaps with the local player on session changes; the libre flavor returns a no-op.
+        castBridge = connectCast(player) { setCurrentPlayer(it) }
 
         // TODO(scrobbling): attach a Player.Listener here to report playback progress
         //  (start / progress / stopped) back to Jellyfin's PlaybackInfo / Sessions API.
-    }
-
-    /**
-     * Wire up Google Cast if Play Services is available. A [CastPlayer] mirrors the queue to a
-     * Cast device; when a cast session opens/closes we move playback between it and the local
-     * [ExoPlayer] by swapping the session's active player. Guarded so devices without Play
-     * Services (or where Cast init fails) simply run local-only.
-     */
-    private fun initCast() {
-        val castContext = runCatching { CastContext.getSharedInstance(this) }.getOrNull() ?: return
-        val cp = CastPlayer(castContext)
-        cp.setSessionAvailabilityListener(object : SessionAvailabilityListener {
-            override fun onCastSessionAvailable() = setCurrentPlayer(cp)
-            override fun onCastSessionUnavailable() = setCurrentPlayer(player)
-        })
-        castPlayer = cp
-        // Honour a cast session that was already active when the service started.
-        if (cp.isCastSessionAvailable) setCurrentPlayer(cp)
     }
 
     /**
@@ -138,8 +120,7 @@ class MusicService : MediaLibraryService() {
         mediaLibrarySession
 
     override fun onDestroy() {
-        castPlayer?.setSessionAvailabilityListener(null)
-        castPlayer?.release()
+        castBridge?.release()
         mediaLibrarySession.release()
         player.release()
         super.onDestroy()

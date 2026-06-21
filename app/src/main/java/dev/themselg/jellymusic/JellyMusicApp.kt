@@ -4,7 +4,6 @@ import android.app.Application
 import coil3.ImageLoader
 import coil3.PlatformContext
 import coil3.SingletonImageLoader
-import com.google.android.gms.cast.framework.CastContext
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 
@@ -18,9 +17,9 @@ class JellyMusicApp : Application(), SingletonImageLoader.Factory {
 
     override fun onCreate() {
         super.onCreate()
-        // Initialize Cast early so the Cast MediaRouteProvider registers and our Compose Cast
-        // dialog can discover devices via MediaRouter. Guarded: no-op without Play Services.
-        runCatching { CastContext.getSharedInstance(this) }
+        // Initialize Cast early (proprietary flavor) so the Cast MediaRouteProvider registers and
+        // the Compose cast dialog can discover devices. No-op in the libre flavor.
+        CastSupport.init(this)
     }
 
     override fun newImageLoader(context: PlatformContext): ImageLoader = imageLoader

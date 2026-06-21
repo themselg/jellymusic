@@ -24,8 +24,8 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.materialkolor)
 
-    // Custom Compose cast chooser / volume overlay
-    implementation(libs.androidx.media3.cast)
-    implementation(libs.play.services.cast.framework)
-    implementation(libs.androidx.mediarouter)
+    // Custom Compose cast chooser — proprietary (Google Play Services) edition only
+    "proprietaryImplementation"(libs.androidx.media3.cast)
+    "proprietaryImplementation"(libs.play.services.cast.framework)
+    "proprietaryImplementation"(libs.androidx.mediarouter)
 }
