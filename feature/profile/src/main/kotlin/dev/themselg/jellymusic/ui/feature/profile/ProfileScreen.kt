@@ -6,6 +6,7 @@ package dev.themselg.jellymusic.ui.feature.profile
 import androidx.compose.ui.platform.LocalContext
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,7 +24,9 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.AccountCircle
+import androidx.compose.material.icons.rounded.ArrowDropDown
 import androidx.compose.material.icons.rounded.Logout
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -34,6 +37,7 @@ import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -432,18 +436,58 @@ private fun LanguageSection() {
             .orEmpty()
         mutableStateOf(match)
     }
-    options.forEach { (tag, labelRes) ->
-        LanguageRow(
-            labelRes = labelRes,
-            selected = currentTag == tag,
-            onClick = {
-                currentTag = tag
-                val locales = if (tag.isEmpty()) {
-                    LocaleListCompat.getEmptyLocaleList()
-                } else {
-                    LocaleListCompat.forLanguageTags(tag)
+    var showDialog by remember { mutableStateOf(false) }
+    val currentLabelRes = options.firstOrNull { it.first == currentTag }?.second
+        ?: R.string.language_system
+
+    // Discreet entry: a single row showing the current language; tap to open the picker dialog.
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { showDialog = true }
+            .padding(horizontal = 16.dp, vertical = 12.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Text(
+            text = stringResource(currentLabelRes),
+            style = MaterialTheme.typography.bodyLarge,
+            modifier = Modifier.weight(1f),
+        )
+        Icon(
+            imageVector = Icons.Rounded.ArrowDropDown,
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+    }
+
+    if (showDialog) {
+        AlertDialog(
+            onDismissRequest = { showDialog = false },
+            title = { Text(stringResource(R.string.settings_language)) },
+            text = {
+                Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+                    options.forEach { (tag, labelRes) ->
+                        LanguageRow(
+                            labelRes = labelRes,
+                            selected = currentTag == tag,
+                            onClick = {
+                                currentTag = tag
+                                val locales = if (tag.isEmpty()) {
+                                    LocaleListCompat.getEmptyLocaleList()
+                                } else {
+                                    LocaleListCompat.forLanguageTags(tag)
+                                }
+                                showDialog = false
+                                AppCompatDelegate.setApplicationLocales(locales)
+                            },
+                        )
+                    }
                 }
-                AppCompatDelegate.setApplicationLocales(locales)
+            },
+            confirmButton = {
+                TextButton(onClick = { showDialog = false }) {
+                    Text(stringResource(R.string.action_cancel))
+                }
             },
         )
     }
