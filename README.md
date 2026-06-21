@@ -24,24 +24,31 @@ A public demo server is available for testing: `https://demo.jellyfin.org/stable
 
 ## Architecture
 
-Single Gradle module (`:app`) with packages mirroring a clean multi-module layout, so it can be
-split later. **MVVM + repositories**, Hilt DI, coroutines/Flow, type-safe Navigation Compose.
+Multi-module Gradle build: **core layers** + **one module per feature**, with the app module as a
+thin shell. **MVVM + repositories**, Hilt DI, coroutines/Flow, type-safe Navigation Compose. Shared
+build config lives in convention plugins under `build-logic/` (applied as `jellymusic.*`).
 
 ```
-dev.themselg.jellymusic
-├─ domain/            # models (Album/Artist/Song/Playlist) + repository interfaces
-├─ data/
-│  ├─ session/        # SessionManager + JellyfinUrls (auth, encrypted creds, URL builders)
-│  ├─ repository/     # Jellyfin SDK-backed repository implementations + DTO mappers
-│  └─ prefs/          # ThemePreferences (DataStore)
-├─ player/            # PlayerController + Media3 MusicService (MediaLibraryService)
-├─ ui/
-│  ├─ theme/          # AppTheme (3 color modes) + SeedColorExtractor + AlbumColorThemeController
-│  ├─ navigation/     # type-safe routes
-│  ├─ components/     # CoverArt, SongRow, cards, MiniPlayer, state views
-│  └─ feature/        # login, library, detail, search, player, settings (screen + ViewModel each)
-└─ di/                # Hilt modules (AppModule, DataModule, PlayerModule)
+:app                     # Application, MainActivity, nav scaffold (NavHost), AppModule
+:core
+├─ :core:domain          # pure Kotlin: models (Album/Artist/Song/Playlist) + repository interfaces
+├─ :core:data            # Jellyfin SDK repos + DTO mappers, session (encrypted creds), DataStore prefs,
+│                        #   offline downloads (Media3), data-layer Hilt modules
+├─ :core:player          # PlayerController + Media3 MusicService (MediaLibraryService) + Cast
+└─ :core:ui              # AppTheme (3 color modes) + dynamic color, shared components (SongRow, cards,
+│                        #   MiniPlayer, CollectionHeader, AddToPlaylistSheet), routes, all UI strings
+:feature
+├─ :feature:login        # each feature = its own module, depends only on :core:* (no feature→feature)
+├─ :feature:home
+├─ :feature:library      # library, liked songs, downloads
+├─ :feature:detail       # album / artist / playlist detail
+├─ :feature:player       # now playing, queue, lyrics
+├─ :feature:search
+└─ :feature:profile      # profile + settings (theme, language, sign out)
 ```
+
+Dependencies flow one way: `:feature:* → :core:ui → :core:player → :core:data → :core:domain`, and
+`:app` wires everything together. Kotlin packages stay under `dev.themselg.jellymusic.*`.
 
 Key libraries: Jellyfin Kotlin SDK (`org.jellyfin.sdk`), AndroidX Media3, Coil 3, MaterialKolor,
 Hilt, DataStore, `androidx.security.crypto`. Versions are pinned in `gradle/libs.versions.toml`.
