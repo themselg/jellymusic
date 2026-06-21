@@ -6,8 +6,8 @@ Inspired by [Findroid](https://github.com/jarnedemeulemeester/findroid), but foc
 
 ## Build & run
 
-Requirements: **Android Studio** (Ladybug or newer) with **JDK 17** and the Android SDK
-(compileSdk 35, minSdk 31).
+Requirements: **Android Studio** (Ladybug or newer, which bundles **JBR 21**) with **JDK 21** and
+the Android SDK (compileSdk 35, minSdk 31).
 
 1. **Open the project in Android Studio** (`File → Open` → this folder). Android Studio will
    generate the Gradle wrapper jar and create `local.properties` with your SDK path automatically.
@@ -64,10 +64,11 @@ To add a language:
    endonyms) untranslated.
 2. Add the locale to `res/xml/locales_config.xml` (powers the system per-app language picker on
    Android 13+).
-3. Add a row to the **Language** picker in `ui/feature/settings/SettingsScreen.kt` (one line in the
-   `options` list + a `language_<code>` endonym string).
+3. Add a row to the **Language** picker (`LanguageSection`) in
+   `feature/profile/.../ProfileScreen.kt` (one line in the `options` list + a `language_<code>`
+   endonym string).
 
-Language can be changed in-app (Settings → *Idioma/Language*) or, on Android 13+, from the system
+Language can be changed in-app (Profile → *Idioma/Language*) or, on Android 13+, from the system
 Settings → Apps → JellyMusic → Language. Switching is handled by
 `AppCompatDelegate.setApplicationLocales` (which is why `MainActivity` is an `AppCompatActivity` and
 the base theme parents `Theme.AppCompat.DayNight.NoActionBar`).
