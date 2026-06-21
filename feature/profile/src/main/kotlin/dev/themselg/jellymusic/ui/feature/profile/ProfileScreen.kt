@@ -407,16 +407,30 @@ private fun LanguageSection() {
         "" to R.string.language_system,
         "en" to R.string.language_english,
         "es" to R.string.language_spanish,
+        "de" to R.string.language_german,
+        "fr" to R.string.language_french,
+        "it" to R.string.language_italian,
+        "nl" to R.string.language_dutch,
+        "pl" to R.string.language_polish,
+        "pt-BR" to R.string.language_portuguese_br,
+        "pt-PT" to R.string.language_portuguese_pt,
+        "ru" to R.string.language_russian,
+        "uk" to R.string.language_ukrainian,
+        "tr" to R.string.language_turkish,
+        "zh-CN" to R.string.language_chinese_simplified,
+        "ja" to R.string.language_japanese,
+        "ko" to R.string.language_korean,
     )
     var currentTag by remember {
-        val tag = AppCompatDelegate.getApplicationLocales().toLanguageTags()
-        mutableStateOf(
-            when {
-                tag.startsWith("es") -> "es"
-                tag.startsWith("en") -> "en"
-                else -> ""
-            },
-        )
+        // Match the active locale against the option tags, preferring the longest match so
+        // region variants (pt-BR / pt-PT, zh-CN) win over a bare language prefix.
+        val active = AppCompatDelegate.getApplicationLocales().toLanguageTags()
+        val match = options.map { it.first }
+            .filter { it.isNotEmpty() }
+            .sortedByDescending { it.length }
+            .firstOrNull { active.startsWith(it, ignoreCase = true) }
+            .orEmpty()
+        mutableStateOf(match)
     }
     options.forEach { (tag, labelRes) ->
         LanguageRow(

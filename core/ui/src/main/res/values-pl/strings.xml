@@ -1,0 +1,130 @@
+<!-- Polish (pl) translation. Machine-assisted — flagged terms need native review (see TRANSLATIONS.md). -->
+<resources>
+
+    <!-- Playback notification channel -->
+    <string name="playback_channel_name">Odtwarzanie</string>
+
+    <!-- Login -->
+    <string name="login_title">Połącz z Jellyfin</string>
+    <string name="login_server_hint">Adres serwera (https://…)</string>
+    <string name="login_username_hint">Nazwa użytkownika</string>
+    <string name="login_password_hint">Hasło</string>
+    <string name="login_action">Zaloguj się</string>
+
+    <!-- Library tabs -->
+    <string name="tab_albums">Albumy</string>
+    <string name="tab_artists">Wykonawcy</string>
+    <string name="tab_songs">Utwory</string>
+    <string name="tab_playlists">Playlisty</string>
+    <string name="tab_favorites">Ulubione</string>
+
+    <!-- Common -->
+    <string name="search">Szukaj</string>
+    <string name="settings">Ustawienia</string>
+    <string name="library">Biblioteka</string>
+    <string name="profile">Profil</string>
+    <string name="liked_songs">Polubione utwory</string>
+    <string name="downloads">Pobrane</string>
+    <string name="lyrics">Tekst utworu</string>
+    <string name="no_lyrics">Brak dostępnego tekstu</string>
+    <string name="about">O aplikacji</string>
+    <string name="version">Wersja</string>
+    <string name="stat_playlists">Playlisty</string>
+    <string name="stat_liked">Polubione utwory</string>
+    <string name="download">Pobierz</string>
+    <string name="remove_download">Usuń pobrany plik</string>
+    <string name="downloaded">Pobrano</string>
+    <string name="downloading">Pobieranie…</string>
+    <string name="play">Odtwórz</string>
+    <string name="shuffle">Losowo</string>
+    <string name="sign_out">Wyloguj się</string>
+    <string name="home">Start</string>
+    <string name="retry">Spróbuj ponownie</string>
+    <string name="favorite">Dodaj do ulubionych</string>
+    <string name="unfavorite">Usuń z ulubionych</string>
+    <string name="cd_album_art">Okładka albumu</string>
+    <string name="cd_play_pause">Odtwórz lub wstrzymaj</string>
+    <string name="cd_next">Następny utwór</string>
+    <string name="cd_previous">Poprzedni utwór</string>
+    <string name="cd_repeat">Powtarzaj</string>
+    <string name="cd_shuffle">Losowo</string>
+    <string name="cd_back">Wstecz</string>
+    <string name="cd_queue">Kolejka</string>
+
+    <!-- States -->
+    <string name="loading">Ładowanie…</string>
+    <string name="error_generic">Coś poszło nie tak</string>
+    <string name="empty_generic">Jeszcze nic tu nie ma</string>
+
+    <!-- Library -->
+    <string name="recently_added">Ostatnio dodane</string>
+    <string name="empty_albums">Brak albumów</string>
+    <string name="empty_artists">Brak wykonawców</string>
+    <string name="empty_songs">Brak utworów</string>
+    <string name="empty_playlists">Brak playlist</string>
+    <string name="empty_favorites">Brak ulubionych</string>
+
+    <!-- Search -->
+    <string name="search_hint">Szukaj muzyki</string>
+    <string name="search_prompt">Szukaj wykonawców, albumów i utworów</string>
+    <string name="search_no_results">Nie znaleziono wyników</string>
+
+    <!-- Detail -->
+    <string name="albums">Albumy</string>
+    <string name="top_songs">Najpopularniejsze utwory</string>
+    <string name="songs_count">%1$d utworów</string>
+
+    <!-- Now playing -->
+    <string name="now_playing">Teraz odtwarzane</string>
+    <string name="up_next">Następne w kolejce</string>
+    <string name="queue">Kolejka</string>
+    <string name="queue_source">Twoja kolejka</string>
+
+    <!-- Playlist management -->
+    <string name="create_playlist">Nowa playlista</string>
+    <string name="playlist_name_hint">Nazwa playlisty</string>
+    <string name="action_create">Utwórz</string>
+    <string name="action_cancel">Anuluj</string>
+    <string name="action_rename">Zmień nazwę</string>
+    <string name="action_delete">Usuń</string>
+    <string name="add_to_playlist">Dodaj do playlisty</string>
+    <string name="remove_from_playlist">Usuń z playlisty</string>
+    <string name="delete_playlist_title">Usunąć playlistę?</string>
+    <string name="delete_playlist_message">Tej operacji nie można cofnąć.</string>
+    <string name="added_to_playlist">Dodano do playlisty</string>
+    <string name="cd_more">Więcej opcji</string>
+
+    <!-- Cast -->
+    <string name="cast">Przesyłaj</string>
+    <string name="cast_to">Przesyłaj do</string>
+    <string name="stop_casting">Zatrzymaj przesyłanie</string>
+    <string name="close">Zamknij</string>
+
+    <!-- Settings -->
+    <string name="settings_color_mode">Motyw kolorystyczny</string>
+    <string name="settings_color_mode_caption">Wybierz, jak JellyMusic dobiera kolory.</string>
+    <string name="color_mode_system">Material You</string>
+    <string name="color_mode_system_caption">Dopasuj do kolorów tapety urządzenia.</string>
+    <string name="color_mode_album_art">Okładka albumu</string>
+    <string name="color_mode_album_art_caption">Koloruj całą aplikację na podstawie odtwarzanej okładki.</string>
+    <string name="color_mode_static">Marka</string>
+    <string name="color_mode_static_caption">Stała paleta kolorów JellyMusic.</string>
+    <string name="settings_appearance">Wygląd</string>
+    <string name="dark_mode_system">Domyślne systemu</string>
+    <string name="dark_mode_light">Jasny</string>
+    <string name="dark_mode_dark">Ciemny</string>
+    <string name="settings_amoled">Czerń AMOLED</string>
+    <string name="settings_amoled_caption">Używaj prawdziwie czarnego tła w trybie ciemnym.</string>
+    <string name="settings_account">Konto</string>
+
+    <!-- Settings: language -->
+    <string name="settings_language">Język</string>
+    <string name="language_system">Domyślne systemu</string>
+
+    <plurals name="song_count">
+        <item quantity="one">%1$d utwór</item>
+        <item quantity="few">%1$d utwory</item>
+        <item quantity="many">%1$d utworów</item>
+        <item quantity="other">%1$d utworu</item>
+    </plurals>
+</resources>

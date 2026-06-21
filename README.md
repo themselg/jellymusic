@@ -55,8 +55,11 @@ Hilt, DataStore, `androidx.security.crypto`. Versions are pinned in `gradle/libs
 
 ## Internationalization (i18n)
 
-All user-facing text lives in `res/values/strings.xml` (the default/English copy). The app ships
-**English** and **Spanish** (`res/values-es/strings.xml`).
+All user-facing text lives in `core/ui/src/main/res/values/strings.xml` (the default/English copy).
+The app ships **15 languages** — English & Spanish (author-maintained) plus German, French, Italian,
+Dutch, Polish, Portuguese (Brazil & Portugal), Russian, Ukrainian, Turkish, Simplified Chinese,
+Japanese and Korean (machine-assisted, pending native review). See [`TRANSLATIONS.md`](TRANSLATIONS.md)
+for status and review notes.
 
 To add a language:
 1. Create `res/values-<code>/strings.xml` (e.g. `values-fr`, `values-pt-rBR`) and translate every
