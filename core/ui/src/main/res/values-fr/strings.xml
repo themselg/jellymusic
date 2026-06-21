@@ -1,0 +1,128 @@
+<!-- French (fr) translation. Machine-assisted — flagged terms need native review (see TRANSLATIONS.md). -->
+<resources>
+
+    <!-- Playback notification channel -->
+    <string name="playback_channel_name">Lecture</string>
+
+    <!-- Login -->
+    <string name="login_title">Se connecter à Jellyfin</string>
+    <string name="login_server_hint">Adresse du serveur (https://…)</string>
+    <string name="login_username_hint">Nom d\'utilisateur</string>
+    <string name="login_password_hint">Mot de passe</string>
+    <string name="login_action">Se connecter</string>
+
+    <!-- Library tabs -->
+    <string name="tab_albums">Albums</string>
+    <string name="tab_artists">Artistes</string>
+    <string name="tab_songs">Titres</string>
+    <string name="tab_playlists">Playlists</string>
+    <string name="tab_favorites">Favoris</string>
+
+    <!-- Common -->
+    <string name="search">Rechercher</string>
+    <string name="settings">Paramètres</string>
+    <string name="library">Bibliothèque</string>
+    <string name="profile">Profil</string>
+    <string name="liked_songs">Titres aimés</string>
+    <string name="downloads">Téléchargements</string>
+    <string name="lyrics">Paroles</string>
+    <string name="no_lyrics">Aucune parole disponible</string>
+    <string name="about">À propos</string>
+    <string name="version">Version</string>
+    <string name="stat_playlists">Playlists</string>
+    <string name="stat_liked">Titres aimés</string>
+    <string name="download">Télécharger</string>
+    <string name="remove_download">Supprimer le téléchargement</string>
+    <string name="downloaded">Téléchargé</string>
+    <string name="downloading">Téléchargement…</string>
+    <string name="play">Lire</string>
+    <string name="shuffle">Aléatoire</string>
+    <string name="sign_out">Se déconnecter</string>
+    <string name="home">Accueil</string>
+    <string name="retry">Réessayer</string>
+    <string name="favorite">Ajouter aux favoris</string>
+    <string name="unfavorite">Retirer des favoris</string>
+    <string name="cd_album_art">Pochette de l\'album</string>
+    <string name="cd_play_pause">Lire ou mettre en pause</string>
+    <string name="cd_next">Titre suivant</string>
+    <string name="cd_previous">Titre précédent</string>
+    <string name="cd_repeat">Répéter</string>
+    <string name="cd_shuffle">Aléatoire</string>
+    <string name="cd_back">Retour</string>
+    <string name="cd_queue">File d\'attente</string>
+
+    <!-- States -->
+    <string name="loading">Chargement…</string>
+    <string name="error_generic">Une erreur est survenue</string>
+    <string name="empty_generic">Rien ici pour le moment</string>
+
+    <!-- Library -->
+    <string name="recently_added">Ajoutés récemment</string>
+    <string name="empty_albums">Aucun album</string>
+    <string name="empty_artists">Aucun artiste</string>
+    <string name="empty_songs">Aucun titre</string>
+    <string name="empty_playlists">Aucune playlist</string>
+    <string name="empty_favorites">Aucun favori pour le moment</string>
+
+    <!-- Search -->
+    <string name="search_hint">Rechercher de la musique</string>
+    <string name="search_prompt">Rechercher des artistes, albums et titres</string>
+    <string name="search_no_results">Aucun résultat trouvé</string>
+
+    <!-- Detail -->
+    <string name="albums">Albums</string>
+    <string name="top_songs">Titres populaires</string>
+    <string name="songs_count">%1$d titres</string>
+
+    <!-- Now playing -->
+    <string name="now_playing">Lecture en cours</string>
+    <string name="up_next">À suivre</string>
+    <string name="queue">File d\'attente</string>
+    <string name="queue_source">Votre file d\'attente</string>
+
+    <!-- Playlist management -->
+    <string name="create_playlist">Nouvelle playlist</string>
+    <string name="playlist_name_hint">Nom de la playlist</string>
+    <string name="action_create">Créer</string>
+    <string name="action_cancel">Annuler</string>
+    <string name="action_rename">Renommer</string>
+    <string name="action_delete">Supprimer</string>
+    <string name="add_to_playlist">Ajouter à la playlist</string>
+    <string name="remove_from_playlist">Retirer de la playlist</string>
+    <string name="delete_playlist_title">Supprimer la playlist ?</string>
+    <string name="delete_playlist_message">Cette action est irréversible.</string>
+    <string name="added_to_playlist">Ajouté à la playlist</string>
+    <string name="cd_more">Plus d\'options</string>
+
+    <!-- Cast -->
+    <string name="cast">Caster</string>
+    <string name="cast_to">Caster vers</string>
+    <string name="stop_casting">Arrêter le casting</string>
+    <string name="close">Fermer</string>
+
+    <!-- Settings -->
+    <string name="settings_color_mode">Thème de couleurs</string>
+    <string name="settings_color_mode_caption">Choisissez comment JellyMusic choisit ses couleurs.</string>
+    <string name="color_mode_system">Material You</string>
+    <string name="color_mode_system_caption">Suivre les couleurs du fond d\'écran de votre appareil.</string>
+    <string name="color_mode_album_art">Pochette de l\'album</string>
+    <string name="color_mode_album_art_caption">Recolorer toute l\'application à partir de la pochette en cours de lecture.</string>
+    <string name="color_mode_static">Marque</string>
+    <string name="color_mode_static_caption">Une palette JellyMusic fixe.</string>
+    <string name="settings_appearance">Apparence</string>
+    <string name="dark_mode_system">Paramètre du système</string>
+    <string name="dark_mode_light">Clair</string>
+    <string name="dark_mode_dark">Sombre</string>
+    <string name="settings_amoled">Noir AMOLED</string>
+    <string name="settings_amoled_caption">Utiliser des arrière-plans noirs purs en mode sombre.</string>
+    <string name="settings_account">Compte</string>
+
+    <!-- Settings: language -->
+    <string name="settings_language">Langue</string>
+    <string name="language_system">Paramètre du système</string>
+
+    <plurals name="song_count">
+        <item quantity="one">%1$d titre</item>
+        <item quantity="other">%1$d titres</item>
+    </plurals>
+</resources>

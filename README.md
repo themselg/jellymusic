@@ -6,8 +6,8 @@ Inspired by [Findroid](https://github.com/jarnedemeulemeester/findroid), but foc
 
 ## Build & run
 
-Requirements: **Android Studio** (Ladybug or newer) with **JDK 17** and the Android SDK
-(compileSdk 35, minSdk 31).
+Requirements: **Android Studio** (Ladybug or newer, which bundles **JBR 21**) with **JDK 21** and
+the Android SDK (compileSdk 35, minSdk 31).
 
 1. **Open the project in Android Studio** (`File → Open` → this folder). Android Studio will
    generate the Gradle wrapper jar and create `local.properties` with your SDK path automatically.
@@ -55,8 +55,11 @@ Hilt, DataStore, `androidx.security.crypto`. Versions are pinned in `gradle/libs
 
 ## Internationalization (i18n)
 
-All user-facing text lives in `res/values/strings.xml` (the default/English copy). The app ships
-**English** and **Spanish** (`res/values-es/strings.xml`).
+All user-facing text lives in `core/ui/src/main/res/values/strings.xml` (the default/English copy).
+The app ships **15 languages** — English & Spanish (author-maintained) plus German, French, Italian,
+Dutch, Polish, Portuguese (Brazil & Portugal), Russian, Ukrainian, Turkish, Simplified Chinese,
+Japanese and Korean (machine-assisted, pending native review). See [`TRANSLATIONS.md`](TRANSLATIONS.md)
+for status and review notes.
 
 To add a language:
 1. Create `res/values-<code>/strings.xml` (e.g. `values-fr`, `values-pt-rBR`) and translate every
@@ -64,10 +67,11 @@ To add a language:
    endonyms) untranslated.
 2. Add the locale to `res/xml/locales_config.xml` (powers the system per-app language picker on
    Android 13+).
-3. Add a row to the **Language** picker in `ui/feature/settings/SettingsScreen.kt` (one line in the
-   `options` list + a `language_<code>` endonym string).
+3. Add a row to the **Language** picker (`LanguageSection`) in
+   `feature/profile/.../ProfileScreen.kt` (one line in the `options` list + a `language_<code>`
+   endonym string).
 
-Language can be changed in-app (Settings → *Idioma/Language*) or, on Android 13+, from the system
+Language can be changed in-app (Profile → *Idioma/Language*) or, on Android 13+, from the system
 Settings → Apps → JellyMusic → Language. Switching is handled by
 `AppCompatDelegate.setApplicationLocales` (which is why `MainActivity` is an `AppCompatActivity` and
 the base theme parents `Theme.AppCompat.DayNight.NoActionBar`).

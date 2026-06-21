@@ -124,6 +124,19 @@
     <string name="language_system">System default</string>
     <string name="language_english" translatable="false">English</string>
     <string name="language_spanish" translatable="false">Español</string>
+    <string name="language_german" translatable="false">Deutsch</string>
+    <string name="language_french" translatable="false">Français</string>
+    <string name="language_italian" translatable="false">Italiano</string>
+    <string name="language_dutch" translatable="false">Nederlands</string>
+    <string name="language_polish" translatable="false">Polski</string>
+    <string name="language_portuguese_br" translatable="false">Português (Brasil)</string>
+    <string name="language_portuguese_pt" translatable="false">Português (Portugal)</string>
+    <string name="language_russian" translatable="false">Русский</string>
+    <string name="language_ukrainian" translatable="false">Українська</string>
+    <string name="language_turkish" translatable="false">Türkçe</string>
+    <string name="language_chinese_simplified" translatable="false">中文（简体）</string>
+    <string name="language_japanese" translatable="false">日本語</string>
+    <string name="language_korean" translatable="false">한국어</string>
 
     <plurals name="song_count">
         <item quantity="one">%1$d song</item>
