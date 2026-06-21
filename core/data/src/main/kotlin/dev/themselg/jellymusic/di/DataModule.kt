@@ -5,6 +5,7 @@ package dev.themselg.jellymusic.di
 
 import dev.themselg.jellymusic.data.repository.FavoritesRepositoryImpl
 import dev.themselg.jellymusic.data.repository.LibraryRepositoryImpl
+import dev.themselg.jellymusic.data.repository.PlaybackReporterImpl
 import dev.themselg.jellymusic.data.repository.PlaylistRepositoryImpl
 import dev.themselg.jellymusic.data.repository.SearchRepositoryImpl
 import dev.themselg.jellymusic.data.session.JellyfinUrls
@@ -12,6 +13,7 @@ import dev.themselg.jellymusic.data.session.SessionManager
 import dev.themselg.jellymusic.data.session.SessionManagerImpl
 import dev.themselg.jellymusic.domain.repository.FavoritesRepository
 import dev.themselg.jellymusic.domain.repository.LibraryRepository
+import dev.themselg.jellymusic.domain.repository.PlaybackReporter
 import dev.themselg.jellymusic.domain.repository.PlaylistRepository
 import dev.themselg.jellymusic.domain.repository.SearchRepository
 import dagger.Binds
@@ -56,4 +58,8 @@ abstract class DataModule {
     @Binds
     @Singleton
     abstract fun bindSearchRepository(impl: SearchRepositoryImpl): SearchRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindPlaybackReporter(impl: PlaybackReporterImpl): PlaybackReporter
 }

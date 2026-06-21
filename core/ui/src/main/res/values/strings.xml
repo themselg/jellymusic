@@ -59,6 +59,11 @@
     <string name="empty_generic">Nothing here yet</string>
 
     <!-- Library -->
+    <string name="sort">Sort</string>
+    <string name="sort_name">Name</string>
+    <string name="sort_date_added">Date added</string>
+    <string name="sort_random">Random</string>
+    <string name="sort_play_count">Most played</string>
     <string name="recently_added">Recently added</string>
     <string name="empty_albums">No albums</string>
     <string name="empty_artists">No artists</string>
@@ -81,6 +86,9 @@
     <string name="up_next">Up next</string>
     <string name="queue">Queue</string>
     <string name="queue_source">Your queue</string>
+    <string name="clear_queue">Clear queue</string>
+    <string name="save_as_playlist">Save as playlist</string>
+    <string name="remove_from_queue">Remove from queue</string>
 
     <!-- Playlist management -->
     <string name="create_playlist">New playlist</string>

@@ -11,6 +11,7 @@ import dev.themselg.jellymusic.domain.model.Song
 import dev.themselg.jellymusic.data.session.JellyfinUrls
 import dev.themselg.jellymusic.data.session.SessionManager
 import dev.themselg.jellymusic.domain.repository.LibraryRepository
+import dev.themselg.jellymusic.domain.repository.SortBy
 import dev.themselg.jellymusic.player.PlayerController
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -53,6 +54,32 @@ class HomeViewModel @Inject constructor(
     private val _state = MutableStateFlow(HomeUiState())
     val state: StateFlow<HomeUiState> = _state.asStateFlow()
 
+    // Per-tab sort order. Changing it reloads that tab.
+    private val _albumsSort = MutableStateFlow(SortBy.NAME)
+    val albumsSort: StateFlow<SortBy> = _albumsSort.asStateFlow()
+    private val _artistsSort = MutableStateFlow(SortBy.NAME)
+    val artistsSort: StateFlow<SortBy> = _artistsSort.asStateFlow()
+    private val _songsSort = MutableStateFlow(SortBy.NAME)
+    val songsSort: StateFlow<SortBy> = _songsSort.asStateFlow()
+
+    fun setAlbumsSort(sortBy: SortBy) {
+        if (_albumsSort.value == sortBy) return
+        _albumsSort.value = sortBy
+        loadAlbums()
+    }
+
+    fun setArtistsSort(sortBy: SortBy) {
+        if (_artistsSort.value == sortBy) return
+        _artistsSort.value = sortBy
+        loadArtists()
+    }
+
+    fun setSongsSort(sortBy: SortBy) {
+        if (_songsSort.value == sortBy) return
+        _songsSort.value = sortBy
+        loadSongs()
+    }
+
     /** Friendly Jellyfin server name shown as the screen title; blank until known. */
     val serverName: StateFlow<String> = sessionManager.session
         .map { it?.serverName?.takeIf(String::isNotBlank).orEmpty() }
@@ -74,7 +101,7 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             runCatching {
                 val recent = libraryRepository.getRecentlyAddedAlbums()
-                val all = libraryRepository.getAlbums()
+                val all = libraryRepository.getAlbums(_albumsSort.value)
                 AlbumsTabData(recent, all)
             }.fold(
                 onSuccess = { data -> _state.update { it.copy(albums = TabContent.Success(data)) } },
@@ -86,7 +113,7 @@ class HomeViewModel @Inject constructor(
     fun loadArtists() {
         _state.update { it.copy(artists = TabContent.Loading) }
         viewModelScope.launch {
-            runCatching { libraryRepository.getArtists() }.fold(
+            runCatching { libraryRepository.getArtists(_artistsSort.value) }.fold(
                 onSuccess = { d -> _state.update { it.copy(artists = TabContent.Success(d)) } },
                 onFailure = { e -> _state.update { it.copy(artists = TabContent.Error(e.message)) } },
             )
@@ -96,7 +123,7 @@ class HomeViewModel @Inject constructor(
     fun loadSongs() {
         _state.update { it.copy(songs = TabContent.Loading) }
         viewModelScope.launch {
-            runCatching { libraryRepository.getSongs() }.fold(
+            runCatching { libraryRepository.getSongs(_songsSort.value) }.fold(
                 onSuccess = { d -> _state.update { it.copy(songs = TabContent.Success(d)) } },
                 onFailure = { e -> _state.update { it.copy(songs = TabContent.Error(e.message)) } },
             )

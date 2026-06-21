@@ -20,7 +20,11 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.rounded.Sort
 import androidx.compose.material.icons.rounded.AccountCircle
+import androidx.compose.material.icons.rounded.Check
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -51,6 +55,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dev.themselg.jellymusic.ui.R
 import dev.themselg.jellymusic.domain.model.Artist
 import dev.themselg.jellymusic.domain.model.Song
+import dev.themselg.jellymusic.domain.repository.SortBy
 import dev.themselg.jellymusic.ui.components.AlbumCard
 import dev.themselg.jellymusic.ui.components.ArtistCard
 import dev.themselg.jellymusic.ui.components.EmptyState
@@ -81,9 +86,21 @@ fun HomeScreen(
     Column(modifier = Modifier.fillMaxSize()) {
         // windowInsets = 0: the enclosing Scaffold already pads for the status bar, so the
         // app bar must not add it again (that caused the large empty gap at the top).
+        val albumsSort by viewModel.albumsSort.collectAsStateWithLifecycle()
+        val artistsSort by viewModel.artistsSort.collectAsStateWithLifecycle()
+        val songsSort by viewModel.songsSort.collectAsStateWithLifecycle()
         TopAppBar(
             title = { Text(title, fontWeight = FontWeight.Bold) },
-            actions = { ProfileAvatarButton(imageUrl = userImageUrl, onClick = onOpenProfile) },
+            actions = {
+                // Sort applies to whichever tab is showing.
+                val (current, onSelect) = when (tabs[pagerState.currentPage]) {
+                    HomeTab.ALBUMS -> albumsSort to viewModel::setAlbumsSort
+                    HomeTab.ARTISTS -> artistsSort to viewModel::setArtistsSort
+                    HomeTab.SONGS -> songsSort to viewModel::setSongsSort
+                }
+                SortMenuButton(current = current, onSelect = onSelect)
+                ProfileAvatarButton(imageUrl = userImageUrl, onClick = onOpenProfile)
+            },
             windowInsets = WindowInsets(0),
         )
         // Only three tabs now (Playlists/Favorites moved to Library), so a full-width TabRow
@@ -152,6 +169,39 @@ private fun ProfileAvatarButton(imageUrl: String?, onClick: () -> Unit) {
                     contentDescription = null,
                     modifier = Modifier.size(32.dp).clip(CircleShape),
                     contentScale = ContentScale.Crop,
+                )
+            }
+        }
+    }
+}
+
+/** Sort affordance: a menu of the [SortBy] options, with a check on the active one. */
+@Composable
+private fun SortMenuButton(current: SortBy, onSelect: (SortBy) -> Unit) {
+    var open by remember { mutableStateOf(false) }
+    val options = listOf(
+        SortBy.NAME to R.string.sort_name,
+        SortBy.DATE_ADDED to R.string.sort_date_added,
+        SortBy.PLAY_COUNT to R.string.sort_play_count,
+        SortBy.RANDOM to R.string.sort_random,
+    )
+    Box {
+        IconButton(onClick = { open = true }) {
+            Icon(Icons.AutoMirrored.Rounded.Sort, contentDescription = stringResource(R.string.sort))
+        }
+        DropdownMenu(expanded = open, onDismissRequest = { open = false }) {
+            options.forEach { (sortBy, labelRes) ->
+                DropdownMenuItem(
+                    text = { Text(stringResource(labelRes)) },
+                    onClick = {
+                        open = false
+                        onSelect(sortBy)
+                    },
+                    leadingIcon = if (sortBy == current) {
+                        { Icon(Icons.Rounded.Check, contentDescription = null) }
+                    } else {
+                        null
+                    },
                 )
             }
         }
