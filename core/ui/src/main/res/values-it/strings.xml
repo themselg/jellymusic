@@ -1,0 +1,128 @@
+<!-- Italian (it) translation. Machine-assisted — flagged terms need native review (see TRANSLATIONS.md). -->
+<resources>
+
+    <!-- Playback notification channel -->
+    <string name="playback_channel_name">Riproduzione</string>
+
+    <!-- Login -->
+    <string name="login_title">Connetti a Jellyfin</string>
+    <string name="login_server_hint">Indirizzo del server (https://…)</string>
+    <string name="login_username_hint">Nome utente</string>
+    <string name="login_password_hint">Password</string>
+    <string name="login_action">Accedi</string>
+
+    <!-- Library tabs -->
+    <string name="tab_albums">Album</string>
+    <string name="tab_artists">Artisti</string>
+    <string name="tab_songs">Brani</string>
+    <string name="tab_playlists">Playlist</string>
+    <string name="tab_favorites">Preferiti</string>
+
+    <!-- Common -->
+    <string name="search">Cerca</string>
+    <string name="settings">Impostazioni</string>
+    <string name="library">Libreria</string>
+    <string name="profile">Profilo</string>
+    <string name="liked_songs">Brani che ti piacciono</string>
+    <string name="downloads">Download</string>
+    <string name="lyrics">Testo</string>
+    <string name="no_lyrics">Nessun testo disponibile</string>
+    <string name="about">Informazioni</string>
+    <string name="version">Versione</string>
+    <string name="stat_playlists">Playlist</string>
+    <string name="stat_liked">Brani che ti piacciono</string>
+    <string name="download">Scarica</string>
+    <string name="remove_download">Rimuovi download</string>
+    <string name="downloaded">Scaricato</string>
+    <string name="downloading">Download in corso…</string>
+    <string name="play">Riproduci</string>
+    <string name="shuffle">Casuale</string>
+    <string name="sign_out">Esci</string>
+    <string name="home">Home</string>
+    <string name="retry">Riprova</string>
+    <string name="favorite">Aggiungi ai preferiti</string>
+    <string name="unfavorite">Rimuovi dai preferiti</string>
+    <string name="cd_album_art">Copertina dell\'album</string>
+    <string name="cd_play_pause">Riproduci o metti in pausa</string>
+    <string name="cd_next">Brano successivo</string>
+    <string name="cd_previous">Brano precedente</string>
+    <string name="cd_repeat">Ripeti</string>
+    <string name="cd_shuffle">Casuale</string>
+    <string name="cd_back">Indietro</string>
+    <string name="cd_queue">Coda</string>
+
+    <!-- States -->
+    <string name="loading">Caricamento…</string>
+    <string name="error_generic">Si è verificato un errore</string>
+    <string name="empty_generic">Ancora niente qui</string>
+
+    <!-- Library -->
+    <string name="recently_added">Aggiunti di recente</string>
+    <string name="empty_albums">Nessun album</string>
+    <string name="empty_artists">Nessun artista</string>
+    <string name="empty_songs">Nessun brano</string>
+    <string name="empty_playlists">Nessuna playlist</string>
+    <string name="empty_favorites">Ancora nessun preferito</string>
+
+    <!-- Search -->
+    <string name="search_hint">Cerca musica</string>
+    <string name="search_prompt">Cerca artisti, album e brani</string>
+    <string name="search_no_results">Nessun risultato trovato</string>
+
+    <!-- Detail -->
+    <string name="albums">Album</string>
+    <string name="top_songs">Brani principali</string>
+    <string name="songs_count">%1$d brani</string>
+
+    <!-- Now playing -->
+    <string name="now_playing">In riproduzione</string>
+    <string name="up_next">Successivo</string>
+    <string name="queue">Coda</string>
+    <string name="queue_source">La tua coda</string>
+
+    <!-- Playlist management -->
+    <string name="create_playlist">Nuova playlist</string>
+    <string name="playlist_name_hint">Nome della playlist</string>
+    <string name="action_create">Crea</string>
+    <string name="action_cancel">Annulla</string>
+    <string name="action_rename">Rinomina</string>
+    <string name="action_delete">Elimina</string>
+    <string name="add_to_playlist">Aggiungi alla playlist</string>
+    <string name="remove_from_playlist">Rimuovi dalla playlist</string>
+    <string name="delete_playlist_title">Eliminare la playlist?</string>
+    <string name="delete_playlist_message">Questa operazione non può essere annullata.</string>
+    <string name="added_to_playlist">Aggiunto alla playlist</string>
+    <string name="cd_more">Altre opzioni</string>
+
+    <!-- Cast -->
+    <string name="cast">Trasmetti</string>
+    <string name="cast_to">Trasmetti su</string>
+    <string name="stop_casting">Interrompi trasmissione</string>
+    <string name="close">Chiudi</string>
+
+    <!-- Settings -->
+    <string name="settings_color_mode">Tema dei colori</string>
+    <string name="settings_color_mode_caption">Scegli come JellyMusic seleziona i suoi colori.</string>
+    <string name="color_mode_system">Material You</string>
+    <string name="color_mode_system_caption">Segui i colori dello sfondo del dispositivo.</string>
+    <string name="color_mode_album_art">Copertina dell\'album</string>
+    <string name="color_mode_album_art_caption">Ricolora l\'intera app in base alla copertina in riproduzione.</string>
+    <string name="color_mode_static">Brand</string>
+    <string name="color_mode_static_caption">Una palette JellyMusic fissa.</string>
+    <string name="settings_appearance">Aspetto</string>
+    <string name="dark_mode_system">Predefinito di sistema</string>
+    <string name="dark_mode_light">Chiaro</string>
+    <string name="dark_mode_dark">Scuro</string>
+    <string name="settings_amoled">Nero AMOLED</string>
+    <string name="settings_amoled_caption">Usa sfondi neri puri nella modalità scura.</string>
+    <string name="settings_account">Account</string>
+
+    <!-- Settings: language -->
+    <string name="settings_language">Lingua</string>
+    <string name="language_system">Predefinita di sistema</string>
+
+    <plurals name="song_count">
+        <item quantity="one">%1$d brano</item>
+        <item quantity="other">%1$d brani</item>
+    </plurals>
+</resources>
