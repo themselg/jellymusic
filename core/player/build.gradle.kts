@@ -13,10 +13,12 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.kotlinx.coroutines.android)
 
-    // Media3 playback + cast
+    // Media3 playback
     implementation(libs.androidx.media3.exoplayer)
     implementation(libs.androidx.media3.datasource)
     implementation(libs.androidx.media3.session)
-    implementation(libs.androidx.media3.cast)
-    implementation(libs.play.services.cast.framework)
+
+    // Chromecast — proprietary (Google Play Services) edition only
+    "proprietaryImplementation"(libs.androidx.media3.cast)
+    "proprietaryImplementation"(libs.play.services.cast.framework)
 }
