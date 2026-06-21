@@ -6,6 +6,8 @@
 .DS_Store
 /build
 /app/build
+# Module build dirs (anywhere, incl. build-logic and future :core/:feature modules)
+build/
 /captures
 .externalNativeBuild
 .cxx

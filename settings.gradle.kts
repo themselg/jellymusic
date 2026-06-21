@@ -1,4 +1,5 @@
 pluginManagement {
+    includeBuild("build-logic")
     repositories {
         google {
             content {
@@ -25,3 +26,14 @@ dependencyResolutionManagement {
 
 rootProject.name = "JellyMusic"
 include(":app")
+include(":core:domain")
+include(":core:data")
+include(":core:player")
+include(":core:ui")
+include(":feature:login")
+include(":feature:home")
+include(":feature:search")
+include(":feature:profile")
+include(":feature:detail")
+include(":feature:player")
+include(":feature:library")
