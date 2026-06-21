@@ -45,6 +45,9 @@ materialKolor = "2.1.1"
 # Android 13-style wavy progress/seek bar
 wavySlider = "2.2.0"
 
+# Jetpack Paging 3
+paging = "3.3.6"
+
 # Testing
 junit = "4.13.2"
 androidxJunit = "1.2.1"
@@ -75,6 +78,7 @@ androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navig
 
 # Coroutines / serialization
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
+kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serialization" }
 
 # DataStore / security
@@ -105,6 +109,10 @@ materialkolor = { group = "com.materialkolor", name = "material-kolor", version.
 
 # Wavy slider (Android 13-style squiggly progress)
 wavy-slider = { group = "ir.mahozad.multiplatform", name = "wavy-slider", version.ref = "wavySlider" }
+
+# Paging 3: paging-common is pure-JVM (usable from :core:domain/:core:data); compose for the UI
+androidx-paging-common = { group = "androidx.paging", name = "paging-common", version.ref = "paging" }
+androidx-paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "paging" }
 
 # Testing
 junit = { group = "junit", name = "junit", version.ref = "junit" }

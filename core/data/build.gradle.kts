@@ -15,6 +15,9 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.serialization.json)
 
+    // Paging 3 (PagingSource + Pager); paging-common is pure JVM.
+    implementation(libs.androidx.paging.common)
+
     // Encrypted session storage + DataStore prefs
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.security.crypto)

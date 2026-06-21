@@ -8,9 +8,13 @@ import dev.themselg.jellymusic.data.session.SessionManagerImpl
 import dev.themselg.jellymusic.domain.model.Album
 import dev.themselg.jellymusic.domain.model.Artist
 import dev.themselg.jellymusic.domain.model.Song
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import dev.themselg.jellymusic.domain.repository.LibraryRepository
 import dev.themselg.jellymusic.domain.repository.SortBy
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import org.jellyfin.sdk.api.client.extensions.artistsApi
 import org.jellyfin.sdk.api.client.extensions.itemsApi
@@ -30,6 +34,61 @@ class LibraryRepositoryImpl @Inject constructor(
 ) : LibraryRepository {
 
     private val imageFields = listOf(ItemFields.PRIMARY_IMAGE_ASPECT_RATIO)
+
+    override fun pagedAlbums(sortBy: SortBy): Flow<PagingData<Album>> = pager { start, limit ->
+        val api = sessionManager.requireApi()
+        val userId = sessionManager.requireUserId()
+        val result by api.itemsApi.getItems(
+            userId = userId,
+            recursive = true,
+            includeItemTypes = listOf(BaseItemKind.MUSIC_ALBUM),
+            sortBy = listOf(sortBy.toItemSortBy()),
+            sortOrder = listOf(SortOrder.ASCENDING),
+            fields = imageFields,
+            startIndex = start,
+            limit = limit,
+        )
+        result.items.orEmpty().map { it.toAlbum(urls) } to (result.totalRecordCount ?: 0)
+    }
+
+    override fun pagedArtists(sortBy: SortBy): Flow<PagingData<Artist>> = pager { start, limit ->
+        val api = sessionManager.requireApi()
+        val userId = sessionManager.requireUserId()
+        val result by api.artistsApi.getArtists(
+            userId = userId,
+            sortBy = listOf(sortBy.toItemSortBy()),
+            sortOrder = listOf(SortOrder.ASCENDING),
+            fields = imageFields,
+            startIndex = start,
+            limit = limit,
+        )
+        result.items.orEmpty().map { it.toArtist(urls) } to (result.totalRecordCount ?: 0)
+    }
+
+    override fun pagedSongs(sortBy: SortBy): Flow<PagingData<Song>> = pager { start, limit ->
+        val api = sessionManager.requireApi()
+        val userId = sessionManager.requireUserId()
+        val result by api.itemsApi.getItems(
+            userId = userId,
+            recursive = true,
+            includeItemTypes = listOf(BaseItemKind.AUDIO),
+            sortBy = listOf(sortBy.toItemSortBy()),
+            sortOrder = listOf(SortOrder.ASCENDING),
+            fields = imageFields,
+            startIndex = start,
+            limit = limit,
+        )
+        result.items.orEmpty().map { it.toSong(urls) } to (result.totalRecordCount ?: 0)
+    }
+
+    /** Wrap an offset-keyed loader into a paged flow. The SDK call runs on IO. */
+    private fun <T : Any> pager(
+        load: suspend (startIndex: Int, limit: Int) -> Pair<List<T>, Int>,
+    ): Flow<PagingData<T>> = Pager(
+        config = PagingConfig(pageSize = PAGE_SIZE, enablePlaceholders = false),
+    ) {
+        ItemPagingSource { start, limit -> withContext(Dispatchers.IO) { load(start, limit) } }
+    }.flow
 
     override suspend fun getAlbums(sortBy: SortBy): List<Album> = withContext(Dispatchers.IO) {
         val api = sessionManager.requireApi()
@@ -151,5 +210,9 @@ class LibraryRepositoryImpl @Inject constructor(
             limit = limit,
         )
         result.items.orEmpty().map { it.toSong(urls) }
+    }
+
+    private companion object {
+        const val PAGE_SIZE = 50
     }
 }

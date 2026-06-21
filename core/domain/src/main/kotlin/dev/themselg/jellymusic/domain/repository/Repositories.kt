@@ -3,11 +3,13 @@
 
 package dev.themselg.jellymusic.domain.repository
 
+import androidx.paging.PagingData
 import dev.themselg.jellymusic.domain.model.Album
 import dev.themselg.jellymusic.domain.model.Artist
 import dev.themselg.jellymusic.domain.model.Playlist
 import dev.themselg.jellymusic.domain.model.SearchResults
 import dev.themselg.jellymusic.domain.model.Song
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Repository contracts consumed by ViewModels. Implementations live in the data layer
@@ -22,6 +24,11 @@ interface LibraryRepository {
     suspend fun getArtists(sortBy: SortBy = SortBy.NAME): List<Artist>
     suspend fun getSongs(sortBy: SortBy = SortBy.NAME): List<Song>
     suspend fun getRecentlyAddedAlbums(limit: Int = 20): List<Album>
+
+    // Paged variants for the large library lists (loaded lazily page by page).
+    fun pagedAlbums(sortBy: SortBy = SortBy.NAME): Flow<PagingData<Album>>
+    fun pagedArtists(sortBy: SortBy = SortBy.NAME): Flow<PagingData<Artist>>
+    fun pagedSongs(sortBy: SortBy = SortBy.NAME): Flow<PagingData<Song>>
 
     suspend fun getAlbum(albumId: String): Album
     suspend fun getAlbumTracks(albumId: String): List<Song>
