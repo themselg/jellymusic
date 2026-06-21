@@ -49,4 +49,11 @@ interface PlayerController {
     fun seekToQueueItem(index: Int)
     fun toggleShuffle()
     fun cycleRepeatMode()
+
+    /** Move a queue entry from [from] to [to] (indices into [queue]). */
+    fun moveQueueItem(from: Int, to: Int)
+    /** Remove the queue entry at [index]. */
+    fun removeQueueItem(index: Int)
+    /** Clear the whole queue and stop playback. */
+    fun clearQueue()
 }

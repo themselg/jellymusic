@@ -17,21 +17,31 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.GraphicEq
 import androidx.compose.material.icons.rounded.KeyboardArrowDown
+import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.material.icons.rounded.Repeat
 import androidx.compose.material.icons.rounded.RepeatOne
 import androidx.compose.material.icons.rounded.Shuffle
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
+import androidx.compose.material3.SwipeToDismissBox
+import androidx.compose.material3.SwipeToDismissBoxValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -46,6 +56,7 @@ import dev.themselg.jellymusic.ui.R
 import dev.themselg.jellymusic.player.NowPlaying
 import dev.themselg.jellymusic.player.RepeatMode
 import dev.themselg.jellymusic.ui.components.CoverArt
+import dev.themselg.jellymusic.ui.components.PlaylistNameDialog
 import dev.themselg.jellymusic.ui.components.formatDuration
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -59,6 +70,9 @@ fun QueueScreen(
     val playbackState by viewModel.playbackState.collectAsStateWithLifecycle()
 
     val totalMs = queue.sumOf { it.durationMs.coerceAtLeast(0L) }
+
+    var menuOpen by remember { mutableStateOf(false) }
+    var showSaveDialog by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -74,10 +88,7 @@ fun QueueScreen(
                 },
                 windowInsets = WindowInsets(0),
                 actions = {
-                    Column(
-                        horizontalAlignment = Alignment.End,
-                        modifier = Modifier.padding(end = 16.dp),
-                    ) {
+                    Column(horizontalAlignment = Alignment.End) {
                         Text(
                             text = pluralStringResource(R.plurals.song_count, queue.size, queue.size),
                             style = MaterialTheme.typography.bodyMedium,
@@ -87,6 +98,21 @@ fun QueueScreen(
                                 text = formatLongDuration(totalMs),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            )
+                        }
+                    }
+                    Box {
+                        IconButton(onClick = { menuOpen = true }, enabled = queue.isNotEmpty()) {
+                            Icon(Icons.Rounded.MoreVert, contentDescription = stringResource(R.string.cd_more))
+                        }
+                        DropdownMenu(expanded = menuOpen, onDismissRequest = { menuOpen = false }) {
+                            DropdownMenuItem(
+                                text = { Text(stringResource(R.string.save_as_playlist)) },
+                                onClick = { menuOpen = false; showSaveDialog = true },
+                            )
+                            DropdownMenuItem(
+                                text = { Text(stringResource(R.string.clear_queue)) },
+                                onClick = { menuOpen = false; viewModel.clearQueue() },
                             )
                         }
                     }
@@ -137,13 +163,62 @@ fun QueueScreen(
                 items = queue,
                 key = { index, item -> "${index}_${item.mediaId}" },
             ) { index, item ->
-                QueueItemRow(
-                    item = item,
-                    isCurrent = item.mediaId == nowPlaying?.mediaId,
-                    onClick = { viewModel.seekToQueueItem(index) },
+                val dismissState = rememberSwipeToDismissBoxState(
+                    confirmValueChange = { value ->
+                        if (value == SwipeToDismissBoxValue.EndToStart) {
+                            viewModel.removeQueueItem(index)
+                            true
+                        } else {
+                            false
+                        }
+                    },
                 )
+                SwipeToDismissBox(
+                    state = dismissState,
+                    enableDismissFromStartToEnd = false,
+                    backgroundContent = { SwipeToRemoveBackground() },
+                ) {
+                    QueueItemRow(
+                        item = item,
+                        isCurrent = item.mediaId == nowPlaying?.mediaId,
+                        onClick = { viewModel.seekToQueueItem(index) },
+                    )
+                }
             }
         }
+    }
+
+    if (showSaveDialog) {
+        PlaylistNameDialog(
+            title = stringResource(R.string.save_as_playlist),
+            confirmLabel = stringResource(R.string.action_create),
+            onConfirm = { name ->
+                showSaveDialog = false
+                viewModel.saveQueueAsPlaylist(name)
+            },
+            onDismiss = { showSaveDialog = false },
+        )
+    }
+}
+
+/** Red background with a trailing delete icon, revealed when swiping a queue row away. */
+@Composable
+private fun SwipeToRemoveBackground() {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 12.dp, vertical = 4.dp)
+            .clip(RoundedCornerShape(12.dp))
+            .background(MaterialTheme.colorScheme.errorContainer)
+            .padding(horizontal = 20.dp, vertical = 16.dp),
+        horizontalArrangement = Arrangement.End,
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Icon(
+            Icons.Rounded.Delete,
+            contentDescription = stringResource(R.string.remove_from_queue),
+            tint = MaterialTheme.colorScheme.onErrorContainer,
+        )
     }
 }
 

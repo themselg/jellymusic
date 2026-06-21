@@ -195,6 +195,21 @@ class PlayerControllerImpl @Inject constructor(
         }
     }
 
+    override fun moveQueueItem(from: Int, to: Int) = withController { c ->
+        val count = c.mediaItemCount
+        if (from in 0 until count && to in 0 until count && from != to) {
+            c.moveMediaItem(from, to)
+        }
+    }
+
+    override fun removeQueueItem(index: Int) = withController { c ->
+        if (index in 0 until c.mediaItemCount) c.removeMediaItem(index)
+    }
+
+    override fun clearQueue() = withController { c ->
+        c.clearMediaItems()
+    }
+
     /** Tear down the controller; call if/when the singleton's lifetime ends. */
     fun release() {
         stopPositionTicker()

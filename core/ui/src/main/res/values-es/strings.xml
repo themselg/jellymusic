@@ -79,6 +79,9 @@
     <string name="up_next">A continuación</string>
     <string name="queue">Cola</string>
     <string name="queue_source">Tu cola</string>
+    <string name="clear_queue">Vaciar cola</string>
+    <string name="save_as_playlist">Guardar como lista</string>
+    <string name="remove_from_queue">Quitar de la cola</string>
 
     <!-- Gestión de listas -->
     <string name="create_playlist">Nueva lista</string>
