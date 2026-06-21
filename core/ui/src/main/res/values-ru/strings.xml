@@ -1,0 +1,130 @@
+<!-- Russian (ru) translation. Machine-assisted — flagged terms need native review (see TRANSLATIONS.md). -->
+<resources>
+
+    <!-- Playback notification channel -->
+    <string name="playback_channel_name">Воспроизведение</string>
+
+    <!-- Login -->
+    <string name="login_title">Подключение к Jellyfin</string>
+    <string name="login_server_hint">Адрес сервера (https://…)</string>
+    <string name="login_username_hint">Имя пользователя</string>
+    <string name="login_password_hint">Пароль</string>
+    <string name="login_action">Войти</string>
+
+    <!-- Library tabs -->
+    <string name="tab_albums">Альбомы</string>
+    <string name="tab_artists">Исполнители</string>
+    <string name="tab_songs">Треки</string>
+    <string name="tab_playlists">Плейлисты</string>
+    <string name="tab_favorites">Избранное</string>
+
+    <!-- Common -->
+    <string name="search">Поиск</string>
+    <string name="settings">Настройки</string>
+    <string name="library">Медиатека</string>
+    <string name="profile">Профиль</string>
+    <string name="liked_songs">Любимые треки</string>
+    <string name="downloads">Загрузки</string>
+    <string name="lyrics">Текст песни</string>
+    <string name="no_lyrics">Текст песни недоступен</string>
+    <string name="about">О приложении</string>
+    <string name="version">Версия</string>
+    <string name="stat_playlists">Плейлисты</string>
+    <string name="stat_liked">Любимые треки</string>
+    <string name="download">Скачать</string>
+    <string name="remove_download">Удалить загрузку</string>
+    <string name="downloaded">Загружено</string>
+    <string name="downloading">Загрузка…</string>
+    <string name="play">Воспроизвести</string>
+    <string name="shuffle">Перемешать</string>
+    <string name="sign_out">Выйти</string>
+    <string name="home">Главная</string>
+    <string name="retry">Повторить</string>
+    <string name="favorite">В избранное</string>
+    <string name="unfavorite">Удалить из избранного</string>
+    <string name="cd_album_art">Обложка альбома</string>
+    <string name="cd_play_pause">Воспроизведение или пауза</string>
+    <string name="cd_next">Следующий трек</string>
+    <string name="cd_previous">Предыдущий трек</string>
+    <string name="cd_repeat">Повтор</string>
+    <string name="cd_shuffle">Перемешать</string>
+    <string name="cd_back">Назад</string>
+    <string name="cd_queue">Очередь</string>
+
+    <!-- States -->
+    <string name="loading">Загрузка…</string>
+    <string name="error_generic">Что-то пошло не так</string>
+    <string name="empty_generic">Здесь пока ничего нет</string>
+
+    <!-- Library -->
+    <string name="recently_added">Недавно добавленные</string>
+    <string name="empty_albums">Нет альбомов</string>
+    <string name="empty_artists">Нет исполнителей</string>
+    <string name="empty_songs">Нет треков</string>
+    <string name="empty_playlists">Нет плейлистов</string>
+    <string name="empty_favorites">Пока нет избранного</string>
+
+    <!-- Search -->
+    <string name="search_hint">Поиск музыки</string>
+    <string name="search_prompt">Поиск исполнителей, альбомов и треков</string>
+    <string name="search_no_results">Ничего не найдено</string>
+
+    <!-- Detail -->
+    <string name="albums">Альбомы</string>
+    <string name="top_songs">Популярные треки</string>
+    <string name="songs_count">%1$d треков</string>
+
+    <!-- Now playing -->
+    <string name="now_playing">Сейчас играет</string>
+    <string name="up_next">Далее</string>
+    <string name="queue">Очередь</string>
+    <string name="queue_source">Ваша очередь</string>
+
+    <!-- Playlist management -->
+    <string name="create_playlist">Новый плейлист</string>
+    <string name="playlist_name_hint">Название плейлиста</string>
+    <string name="action_create">Создать</string>
+    <string name="action_cancel">Отмена</string>
+    <string name="action_rename">Переименовать</string>
+    <string name="action_delete">Удалить</string>
+    <string name="add_to_playlist">Добавить в плейлист</string>
+    <string name="remove_from_playlist">Удалить из плейлиста</string>
+    <string name="delete_playlist_title">Удалить плейлист?</string>
+    <string name="delete_playlist_message">Это действие нельзя отменить.</string>
+    <string name="added_to_playlist">Добавлено в плейлист</string>
+    <string name="cd_more">Дополнительно</string>
+
+    <!-- Cast -->
+    <string name="cast">Трансляция</string>
+    <string name="cast_to">Транслировать на</string>
+    <string name="stop_casting">Остановить трансляцию</string>
+    <string name="close">Закрыть</string>
+
+    <!-- Settings -->
+    <string name="settings_color_mode">Цветовая тема</string>
+    <string name="settings_color_mode_caption">Выберите, как JellyMusic подбирает цвета.</string>
+    <string name="color_mode_system">Material You</string>
+    <string name="color_mode_system_caption">Использовать цвета обоев устройства.</string>
+    <string name="color_mode_album_art">Обложка альбома</string>
+    <string name="color_mode_album_art_caption">Перекрашивать всё приложение по текущей обложке.</string>
+    <string name="color_mode_static">Фирменная</string>
+    <string name="color_mode_static_caption">Постоянная палитра JellyMusic.</string>
+    <string name="settings_appearance">Оформление</string>
+    <string name="dark_mode_system">Системная</string>
+    <string name="dark_mode_light">Светлая</string>
+    <string name="dark_mode_dark">Тёмная</string>
+    <string name="settings_amoled">AMOLED-чёрный</string>
+    <string name="settings_amoled_caption">Использовать абсолютно чёрный фон в тёмной теме.</string>
+    <string name="settings_account">Учётная запись</string>
+
+    <!-- Settings: language -->
+    <string name="settings_language">Язык</string>
+    <string name="language_system">Системный</string>
+
+    <plurals name="song_count">
+        <item quantity="one">%1$d песня</item>
+        <item quantity="few">%1$d песни</item>
+        <item quantity="many">%1$d песен</item>
+        <item quantity="other">%1$d песни</item>
+    </plurals>
+</resources>

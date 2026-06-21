@@ -1,0 +1,127 @@
+<!-- Korean (ko) translation. Machine-assisted — flagged terms need native review (see TRANSLATIONS.md). -->
+<resources>
+
+    <!-- Playback notification channel -->
+    <string name="playback_channel_name">재생</string>
+
+    <!-- Login -->
+    <string name="login_title">Jellyfin에 연결</string>
+    <string name="login_server_hint">서버 주소 (https://…)</string>
+    <string name="login_username_hint">사용자 이름</string>
+    <string name="login_password_hint">비밀번호</string>
+    <string name="login_action">로그인</string>
+
+    <!-- Library tabs -->
+    <string name="tab_albums">앨범</string>
+    <string name="tab_artists">아티스트</string>
+    <string name="tab_songs">곡</string>
+    <string name="tab_playlists">재생목록</string>
+    <string name="tab_favorites">즐겨찾기</string>
+
+    <!-- Common -->
+    <string name="search">검색</string>
+    <string name="settings">설정</string>
+    <string name="library">라이브러리</string>
+    <string name="profile">프로필</string>
+    <string name="liked_songs">좋아요 표시한 곡</string>
+    <string name="downloads">다운로드</string>
+    <string name="lyrics">가사</string>
+    <string name="no_lyrics">가사를 사용할 수 없습니다</string>
+    <string name="about">정보</string>
+    <string name="version">버전</string>
+    <string name="stat_playlists">재생목록</string>
+    <string name="stat_liked">좋아요 표시한 곡</string>
+    <string name="download">다운로드</string>
+    <string name="remove_download">다운로드 삭제</string>
+    <string name="downloaded">다운로드됨</string>
+    <string name="downloading">다운로드 중…</string>
+    <string name="play">재생</string>
+    <string name="shuffle">셔플</string>
+    <string name="sign_out">로그아웃</string>
+    <string name="home">홈</string>
+    <string name="retry">다시 시도</string>
+    <string name="favorite">즐겨찾기</string>
+    <string name="unfavorite">즐겨찾기에서 삭제</string>
+    <string name="cd_album_art">앨범 아트</string>
+    <string name="cd_play_pause">재생 또는 일시정지</string>
+    <string name="cd_next">다음 트랙</string>
+    <string name="cd_previous">이전 트랙</string>
+    <string name="cd_repeat">반복</string>
+    <string name="cd_shuffle">셔플</string>
+    <string name="cd_back">뒤로</string>
+    <string name="cd_queue">대기열</string>
+
+    <!-- States -->
+    <string name="loading">불러오는 중…</string>
+    <string name="error_generic">문제가 발생했습니다</string>
+    <string name="empty_generic">아직 아무것도 없습니다</string>
+
+    <!-- Library -->
+    <string name="recently_added">최근 추가됨</string>
+    <string name="empty_albums">앨범 없음</string>
+    <string name="empty_artists">아티스트 없음</string>
+    <string name="empty_songs">곡 없음</string>
+    <string name="empty_playlists">재생목록 없음</string>
+    <string name="empty_favorites">아직 즐겨찾기가 없습니다</string>
+
+    <!-- Search -->
+    <string name="search_hint">음악 검색</string>
+    <string name="search_prompt">아티스트, 앨범, 곡 검색</string>
+    <string name="search_no_results">검색 결과가 없습니다</string>
+
+    <!-- Detail -->
+    <string name="albums">앨범</string>
+    <string name="top_songs">인기 곡</string>
+    <string name="songs_count">%1$d곡</string>
+
+    <!-- Now playing -->
+    <string name="now_playing">재생 중</string>
+    <string name="up_next">다음 곡</string>
+    <string name="queue">대기열</string>
+    <string name="queue_source">내 대기열</string>
+
+    <!-- Playlist management -->
+    <string name="create_playlist">새 재생목록</string>
+    <string name="playlist_name_hint">재생목록 이름</string>
+    <string name="action_create">만들기</string>
+    <string name="action_cancel">취소</string>
+    <string name="action_rename">이름 변경</string>
+    <string name="action_delete">삭제</string>
+    <string name="add_to_playlist">재생목록에 추가</string>
+    <string name="remove_from_playlist">재생목록에서 삭제</string>
+    <string name="delete_playlist_title">재생목록을 삭제할까요?</string>
+    <string name="delete_playlist_message">이 작업은 되돌릴 수 없습니다.</string>
+    <string name="added_to_playlist">재생목록에 추가됨</string>
+    <string name="cd_more">더보기</string>
+
+    <!-- Cast -->
+    <string name="cast">캐스트</string>
+    <string name="cast_to">캐스트 대상</string>
+    <string name="stop_casting">캐스트 중지</string>
+    <string name="close">닫기</string>
+
+    <!-- Settings -->
+    <string name="settings_color_mode">색상 테마</string>
+    <string name="settings_color_mode_caption">JellyMusic가 색상을 선택하는 방식을 고르세요.</string>
+    <string name="color_mode_system">Material You</string>
+    <string name="color_mode_system_caption">기기 배경화면 색상을 따릅니다.</string>
+    <string name="color_mode_album_art">앨범 아트</string>
+    <string name="color_mode_album_art_caption">재생 중인 커버에서 앱 전체 색상을 다시 칠합니다.</string>
+    <string name="color_mode_static">브랜드</string>
+    <string name="color_mode_static_caption">고정된 JellyMusic 색상 팔레트입니다.</string>
+    <string name="settings_appearance">디스플레이</string>
+    <string name="dark_mode_system">시스템 기본값</string>
+    <string name="dark_mode_light">밝게</string>
+    <string name="dark_mode_dark">어둡게</string>
+    <string name="settings_amoled">AMOLED 블랙</string>
+    <string name="settings_amoled_caption">어두운 모드에서 완전한 검은색 배경을 사용합니다.</string>
+    <string name="settings_account">계정</string>
+
+    <!-- Settings: language -->
+    <string name="settings_language">언어</string>
+    <string name="language_system">시스템 기본값</string>
+
+    <plurals name="song_count">
+        <item quantity="other">%1$d곡</item>
+    </plurals>
+</resources>

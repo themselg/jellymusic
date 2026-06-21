@@ -1,0 +1,130 @@
+<!-- Ukrainian (uk) translation. Machine-assisted — flagged terms need native review (see TRANSLATIONS.md). -->
+<resources>
+
+    <!-- Playback notification channel -->
+    <string name="playback_channel_name">Відтворення</string>
+
+    <!-- Login -->
+    <string name="login_title">Підключення до Jellyfin</string>
+    <string name="login_server_hint">Адреса сервера (https://…)</string>
+    <string name="login_username_hint">Ім\'я користувача</string>
+    <string name="login_password_hint">Пароль</string>
+    <string name="login_action">Увійти</string>
+
+    <!-- Library tabs -->
+    <string name="tab_albums">Альбоми</string>
+    <string name="tab_artists">Виконавці</string>
+    <string name="tab_songs">Пісні</string>
+    <string name="tab_playlists">Списки відтворення</string>
+    <string name="tab_favorites">Обране</string>
+
+    <!-- Common -->
+    <string name="search">Пошук</string>
+    <string name="settings">Налаштування</string>
+    <string name="library">Медіатека</string>
+    <string name="profile">Профіль</string>
+    <string name="liked_songs">Уподобані пісні</string>
+    <string name="downloads">Завантаження</string>
+    <string name="lyrics">Текст пісні</string>
+    <string name="no_lyrics">Текст пісні недоступний</string>
+    <string name="about">Про застосунок</string>
+    <string name="version">Версія</string>
+    <string name="stat_playlists">Списки відтворення</string>
+    <string name="stat_liked">Уподобані пісні</string>
+    <string name="download">Завантажити</string>
+    <string name="remove_download">Видалити завантаження</string>
+    <string name="downloaded">Завантажено</string>
+    <string name="downloading">Завантаження…</string>
+    <string name="play">Відтворити</string>
+    <string name="shuffle">Перемішати</string>
+    <string name="sign_out">Вийти</string>
+    <string name="home">Головна</string>
+    <string name="retry">Повторити</string>
+    <string name="favorite">До обраного</string>
+    <string name="unfavorite">Прибрати з обраного</string>
+    <string name="cd_album_art">Обкладинка альбому</string>
+    <string name="cd_play_pause">Відтворити або призупинити</string>
+    <string name="cd_next">Наступний трек</string>
+    <string name="cd_previous">Попередній трек</string>
+    <string name="cd_repeat">Повторювати</string>
+    <string name="cd_shuffle">Перемішати</string>
+    <string name="cd_back">Назад</string>
+    <string name="cd_queue">Черга</string>
+
+    <!-- States -->
+    <string name="loading">Завантаження…</string>
+    <string name="error_generic">Щось пішло не так</string>
+    <string name="empty_generic">Тут поки що порожньо</string>
+
+    <!-- Library -->
+    <string name="recently_added">Нещодавно додані</string>
+    <string name="empty_albums">Немає альбомів</string>
+    <string name="empty_artists">Немає виконавців</string>
+    <string name="empty_songs">Немає пісень</string>
+    <string name="empty_playlists">Немає списків відтворення</string>
+    <string name="empty_favorites">Поки що немає обраного</string>
+
+    <!-- Search -->
+    <string name="search_hint">Пошук музики</string>
+    <string name="search_prompt">Шукайте виконавців, альбоми та пісні</string>
+    <string name="search_no_results">Нічого не знайдено</string>
+
+    <!-- Detail -->
+    <string name="albums">Альбоми</string>
+    <string name="top_songs">Популярні пісні</string>
+    <string name="songs_count">%1$d пісень</string>
+
+    <!-- Now playing -->
+    <string name="now_playing">Зараз відтворюється</string>
+    <string name="up_next">Далі у черзі</string>
+    <string name="queue">Черга</string>
+    <string name="queue_source">Ваша черга</string>
+
+    <!-- Playlist management -->
+    <string name="create_playlist">Новий список відтворення</string>
+    <string name="playlist_name_hint">Назва списку відтворення</string>
+    <string name="action_create">Створити</string>
+    <string name="action_cancel">Скасувати</string>
+    <string name="action_rename">Перейменувати</string>
+    <string name="action_delete">Видалити</string>
+    <string name="add_to_playlist">Додати до списку відтворення</string>
+    <string name="remove_from_playlist">Прибрати зі списку відтворення</string>
+    <string name="delete_playlist_title">Видалити список відтворення?</string>
+    <string name="delete_playlist_message">Цю дію не можна скасувати.</string>
+    <string name="added_to_playlist">Додано до списку відтворення</string>
+    <string name="cd_more">Більше параметрів</string>
+
+    <!-- Cast -->
+    <string name="cast">Транслювати</string>
+    <string name="cast_to">Транслювати на</string>
+    <string name="stop_casting">Зупинити трансляцію</string>
+    <string name="close">Закрити</string>
+
+    <!-- Settings -->
+    <string name="settings_color_mode">Колірна тема</string>
+    <string name="settings_color_mode_caption">Виберіть, як JellyMusic добирає кольори.</string>
+    <string name="color_mode_system">Material You</string>
+    <string name="color_mode_system_caption">Використовувати кольори шпалер вашого пристрою.</string>
+    <string name="color_mode_album_art">Обкладинка альбому</string>
+    <string name="color_mode_album_art_caption">Перефарбовувати весь застосунок за обкладинкою, що відтворюється.</string>
+    <string name="color_mode_static">Фірмова</string>
+    <string name="color_mode_static_caption">Фіксована палітра JellyMusic.</string>
+    <string name="settings_appearance">Зовнішній вигляд</string>
+    <string name="dark_mode_system">Системна за замовчуванням</string>
+    <string name="dark_mode_light">Світла</string>
+    <string name="dark_mode_dark">Темна</string>
+    <string name="settings_amoled">AMOLED-чорний</string>
+    <string name="settings_amoled_caption">Використовувати справжній чорний фон у темному режимі.</string>
+    <string name="settings_account">Обліковий запис</string>
+
+    <!-- Settings: language -->
+    <string name="settings_language">Мова</string>
+    <string name="language_system">Системна за замовчуванням</string>
+
+    <plurals name="song_count">
+        <item quantity="one">%1$d пісня</item>
+        <item quantity="few">%1$d пісні</item>
+        <item quantity="many">%1$d пісень</item>
+        <item quantity="other">%1$d пісні</item>
+    </plurals>
+</resources>
