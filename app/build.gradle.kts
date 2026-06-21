@@ -1,6 +1,17 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.jellymusic.android.application)
     alias(libs.plugins.kotlin.serialization)
+}
+
+// Release signing is read from a gitignored app/keystore.properties so NO secrets live in the
+// repo. Without that file, `release` builds come out unsigned — clone the repo and you can build
+// and test debug freely; to produce a signed APK, create your own keystore and keystore.properties
+// (see keystore.properties.example). The signing key is never inherited from this repo.
+val keystorePropsFile = file("keystore.properties")
+val keystoreProps = Properties().apply {
+    if (keystorePropsFile.exists()) keystorePropsFile.inputStream().use { load(it) }
 }
 
 android {
@@ -15,13 +26,14 @@ android {
     }
 
     signingConfigs {
-        // Self-signed release key (checked into the repo for this personal build). For a public
-        // release, move these to a private keystore.properties / environment variables instead.
-        create("release") {
-            storeFile = file("jellymusic-release.keystore")
-            storePassword = "REDACTED"
-            keyAlias = "jellymusic"
-            keyPassword = "REDACTED"
+        // Only define the release signing config when keystore.properties is present.
+        if (keystorePropsFile.exists()) {
+            create("release") {
+                storeFile = file(keystoreProps.getProperty("storeFile"))
+                storePassword = keystoreProps.getProperty("storePassword")
+                keyAlias = keystoreProps.getProperty("keyAlias")
+                keyPassword = keystoreProps.getProperty("keyPassword")
+            }
         }
     }
 
@@ -41,7 +53,8 @@ android {
 
     buildTypes {
         release {
-            signingConfig = signingConfigs.getByName("release")
+            // null when keystore.properties is absent → release stays unsigned (build from scratch).
+            signingConfig = signingConfigs.findByName("release")
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(

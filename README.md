@@ -9,15 +9,18 @@ Inspired by [Findroid](https://github.com/jarnedemeulemeester/findroid), but foc
 Requirements: **Android Studio** (Ladybug or newer, which bundles **JBR 21**) with **JDK 21** and
 the Android SDK (compileSdk 35, minSdk 31).
 
-1. **Open the project in Android Studio** (`File → Open` → this folder). Android Studio will
-   generate the Gradle wrapper jar and create `local.properties` with your SDK path automatically.
+1. **Open the project in Android Studio** (`File → Open` → this folder). Android Studio creates
+   `local.properties` with your SDK path automatically.
 2. Let Gradle sync, then **Run** the `app` configuration on an emulator/device running
-   **Android 12 (API 31) or newer**.
+   **Android 12 (API 31) or newer**. From the command line, `./gradlew assembleDebug` works out of
+   the box (the Gradle wrapper is committed). Debug builds are signed with the auto-generated debug
+   keystore, so **cloning and testing needs no setup**.
 
-> **Note on the Gradle wrapper:** `gradle/wrapper/gradle-wrapper.jar` is a binary and is **not**
-> included here. Android Studio regenerates it on import. To build from the command line first run
-> `gradle wrapper --gradle-version 8.11.1` (needs a system Gradle once), after which `./gradlew
-> assembleDebug` works.
+> **Signing your own release:** the repo contains **no signing key or passwords**. `release` builds
+> are unsigned unless you provide your own. To sign one: generate a keystore with `keytool`, copy
+> [`app/keystore.properties.example`](app/keystore.properties.example) to `app/keystore.properties`
+> (gitignored) and fill it in. See that file for the exact command. For F-Droid you don't need any
+> of this — it builds the `libre` flavor from source and signs it with F-Droid's own key.
 
 A public demo server is available for testing: `https://demo.jellyfin.org/stable`
 (user `demo`, no password).
