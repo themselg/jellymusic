@@ -29,6 +29,8 @@
     <string name="no_lyrics">No lyrics available</string>
     <string name="about">About</string>
     <string name="version">Version</string>
+    <string name="acknowledgements">Acknowledgements</string>
+    <string name="acknowledgements_caption">Open-source projects JellyMusic is built with</string>
     <string name="stat_playlists">Playlists</string>
     <string name="stat_liked">Liked songs</string>
     <string name="download">Download</string>
