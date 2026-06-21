@@ -57,6 +57,11 @@
     <string name="empty_generic">Aún no hay nada aquí</string>
 
     <!-- Library -->
+    <string name="sort">Ordenar</string>
+    <string name="sort_name">Nombre</string>
+    <string name="sort_date_added">Fecha de adición</string>
+    <string name="sort_random">Aleatorio</string>
+    <string name="sort_play_count">Más reproducido</string>
     <string name="recently_added">Añadido recientemente</string>
     <string name="empty_albums">Sin álbumes</string>
     <string name="empty_artists">Sin artistas</string>
