@@ -55,6 +55,13 @@ dependencies {
     implementation(project(":core:data"))
     implementation(project(":core:player"))
     implementation(project(":core:ui"))
+    implementation(project(":feature:login"))
+    implementation(project(":feature:home"))
+    implementation(project(":feature:search"))
+    implementation(project(":feature:profile"))
+    implementation(project(":feature:detail"))
+    implementation(project(":feature:player"))
+    implementation(project(":feature:library"))
 
     // AndroidX core
     implementation(libs.androidx.core.ktx)

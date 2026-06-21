@@ -18,6 +18,7 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
             add("implementation", project(":core:data"))
             add("implementation", project(":core:player"))
 
+            add("implementation", libs.findLibrary("coil-compose").get())
             add("implementation", libs.findLibrary("androidx-navigation-compose").get())
             add("implementation", libs.findLibrary("androidx-hilt-navigation-compose").get())
             add("implementation", libs.findLibrary("androidx-lifecycle-runtime-compose").get())
