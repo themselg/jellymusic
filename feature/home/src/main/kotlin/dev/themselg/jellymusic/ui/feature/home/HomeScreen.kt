@@ -52,7 +52,12 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.paging.LoadState
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.itemKey
 import dev.themselg.jellymusic.ui.R
+import dev.themselg.jellymusic.domain.model.Album
 import dev.themselg.jellymusic.domain.model.Artist
 import dev.themselg.jellymusic.domain.model.Song
 import dev.themselg.jellymusic.domain.repository.SortBy
@@ -74,7 +79,6 @@ fun HomeScreen(
     onOpenProfile: () -> Unit,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
-    val state by viewModel.state.collectAsStateWithLifecycle()
     val serverName by viewModel.serverName.collectAsStateWithLifecycle()
     val tabs = HomeTab.entries
     val pagerState = rememberPagerState(pageCount = { tabs.size })
@@ -120,20 +124,17 @@ fun HomeScreen(
         ) { page ->
             when (tabs[page]) {
                 HomeTab.ALBUMS -> AlbumsTab(
-                    content = state.albums,
+                    albums = viewModel.albums.collectAsLazyPagingItems(),
+                    recentlyAdded = viewModel.recentlyAdded.collectAsStateWithLifecycle().value,
                     onAlbumClick = onAlbumClick,
-                    onRetry = viewModel::loadAlbums,
                 )
                 HomeTab.ARTISTS -> ArtistsTab(
-                    content = state.artists,
+                    artists = viewModel.artists.collectAsLazyPagingItems(),
                     onArtistClick = onArtistClick,
-                    onRetry = viewModel::loadArtists,
                 )
                 HomeTab.SONGS -> SongsTab(
-                    content = state.songs,
+                    songs = viewModel.songs.collectAsLazyPagingItems(),
                     onPlay = viewModel::playSongs,
-                    onRetry = viewModel::loadSongs,
-                    emptyRes = R.string.empty_songs,
                 )
             }
         }
@@ -210,11 +211,11 @@ private fun SortMenuButton(current: SortBy, onSelect: (SortBy) -> Unit) {
 
 @Composable
 private fun AlbumsTab(
-    content: TabContent<AlbumsTabData>,
+    albums: LazyPagingItems<Album>,
+    recentlyAdded: List<Album>,
     onAlbumClick: (String) -> Unit,
-    onRetry: () -> Unit,
 ) {
-    TabScaffold(content, onRetry, emptyRes = R.string.empty_albums, isEmpty = { it.albums.isEmpty() }) { data ->
+    PagedContent(albums, emptyRes = R.string.empty_albums) {
         LazyVerticalGrid(
             columns = GridCells.Adaptive(minSize = 140.dp),
             modifier = Modifier.fillMaxSize(),
@@ -222,7 +223,7 @@ private fun AlbumsTab(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            if (data.recentlyAdded.isNotEmpty()) {
+            if (recentlyAdded.isNotEmpty()) {
                 item(span = { GridItemSpanFull() }) {
                     Column {
                         SectionHeader(stringResource(R.string.recently_added))
@@ -230,7 +231,7 @@ private fun AlbumsTab(
                             contentPadding = PaddingValues(horizontal = 12.dp),
                             horizontalArrangement = Arrangement.spacedBy(8.dp),
                         ) {
-                            items(data.recentlyAdded, key = { it.id }) { album ->
+                            items(recentlyAdded, key = { it.id }) { album ->
                                 AlbumCard(
                                     album = album,
                                     onClick = { onAlbumClick(album.id) },
@@ -244,8 +245,10 @@ private fun AlbumsTab(
                     SectionHeader(stringResource(R.string.tab_albums))
                 }
             }
-            items(data.albums, key = { it.id }) { album ->
-                AlbumCard(album = album, onClick = { onAlbumClick(album.id) })
+            items(count = albums.itemCount, key = albums.itemKey { it.id }) { index ->
+                albums[index]?.let { album ->
+                    AlbumCard(album = album, onClick = { onAlbumClick(album.id) })
+                }
             }
         }
     }
@@ -253,11 +256,10 @@ private fun AlbumsTab(
 
 @Composable
 private fun ArtistsTab(
-    content: TabContent<List<Artist>>,
+    artists: LazyPagingItems<Artist>,
     onArtistClick: (String) -> Unit,
-    onRetry: () -> Unit,
 ) {
-    TabScaffold(content, onRetry, emptyRes = R.string.empty_artists, isEmpty = { it.isEmpty() }) { artists ->
+    PagedContent(artists, emptyRes = R.string.empty_artists) {
         LazyVerticalGrid(
             columns = GridCells.Adaptive(minSize = 130.dp),
             modifier = Modifier.fillMaxSize(),
@@ -265,8 +267,10 @@ private fun ArtistsTab(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            items(artists, key = { it.id }) { artist ->
-                ArtistCard(artist = artist, onClick = { onArtistClick(artist.id) })
+            items(count = artists.itemCount, key = artists.itemKey { it.id }) { index ->
+                artists[index]?.let { artist ->
+                    ArtistCard(artist = artist, onClick = { onArtistClick(artist.id) })
+                }
             }
         }
     }
@@ -274,21 +278,21 @@ private fun ArtistsTab(
 
 @Composable
 private fun SongsTab(
-    content: TabContent<List<Song>>,
+    songs: LazyPagingItems<Song>,
     onPlay: (List<Song>, Int) -> Unit,
-    onRetry: () -> Unit,
-    emptyRes: Int,
 ) {
     var addTarget by remember { mutableStateOf<Song?>(null) }
-    TabScaffold(content, onRetry, emptyRes = emptyRes, isEmpty = { it.isEmpty() }) { songs ->
+    PagedContent(songs, emptyRes = R.string.empty_songs) {
         LazyColumn(modifier = Modifier.fillMaxSize()) {
-            items(songs, key = { it.id }) { song ->
-                val index = songs.indexOf(song)
-                SongRow(
-                    song = song,
-                    onClick = { onPlay(songs, index) },
-                    onAddToPlaylist = { addTarget = song },
-                )
+            items(count = songs.itemCount, key = songs.itemKey { it.id }) { index ->
+                songs[index]?.let { song ->
+                    SongRow(
+                        song = song,
+                        // Play the currently-loaded page snapshot starting at this row.
+                        onClick = { onPlay(songs.itemSnapshotList.items, index) },
+                        onAddToPlaylist = { addTarget = song },
+                    )
+                }
             }
         }
     }
@@ -297,25 +301,20 @@ private fun SongsTab(
     }
 }
 
-/** Shared Loading/Error/Empty/Success wrapper for a tab body. */
+/** Loading/Error/Empty wrapper around a paged list, driven by the refresh load state. */
 @Composable
-private fun <T> TabScaffold(
-    content: TabContent<T>,
-    onRetry: () -> Unit,
+private fun <T : Any> PagedContent(
+    items: LazyPagingItems<T>,
     emptyRes: Int,
-    isEmpty: (T) -> Boolean,
-    success: @Composable (T) -> Unit,
+    content: @Composable () -> Unit,
 ) {
-    when (content) {
-        is TabContent.Loading -> LoadingState()
-        is TabContent.Error -> ErrorState(message = content.message, onRetry = onRetry)
-        is TabContent.Success -> {
-            if (isEmpty(content.data)) {
-                EmptyState(message = stringResource(emptyRes))
-            } else {
-                success(content.data)
-            }
-        }
+    val refresh = items.loadState.refresh
+    when {
+        refresh is LoadState.Loading && items.itemCount == 0 -> LoadingState()
+        refresh is LoadState.Error && items.itemCount == 0 ->
+            ErrorState(message = refresh.error.message, onRetry = { items.retry() })
+        items.itemCount == 0 -> EmptyState(message = stringResource(emptyRes))
+        else -> content()
     }
 }
 
