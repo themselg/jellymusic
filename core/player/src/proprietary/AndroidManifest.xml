@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Google Cast device discovery (proprietary edition only) -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <application>
+        <!-- Google Cast: points the Cast SDK at our OptionsProvider. -->
+        <meta-data
+            android:name="com.google.android.gms.cast.framework.OPTIONS_PROVIDER_CLASS_NAME"
+            android:value="dev.themselg.jellymusic.player.cast.JellyCastOptionsProvider" />
+    </application>
+
+</manifest>
