@@ -1,5 +1,6 @@
 package dev.themselg.jellymusic.ui.feature.profile
 
+import androidx.compose.ui.platform.LocalContext
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -48,7 +49,6 @@ import androidx.core.os.LocaleListCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
-import dev.themselg.jellymusic.BuildConfig
 import dev.themselg.jellymusic.ui.R
 import dev.themselg.jellymusic.data.prefs.ColorMode
 import dev.themselg.jellymusic.data.prefs.DarkMode
@@ -237,6 +237,12 @@ private fun StatCard(
 
 @Composable
 private fun AboutRow() {
+    val context = LocalContext.current
+    // Read the version from the installed package so this module needs no BuildConfig from :app.
+    val versionName = remember(context) {
+        runCatching { context.packageManager.getPackageInfo(context.packageName, 0).versionName }
+            .getOrNull().orEmpty()
+    }
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -246,7 +252,7 @@ private fun AboutRow() {
         Column(modifier = Modifier.weight(1f)) {
             Text(stringResource(R.string.app_name), style = MaterialTheme.typography.bodyLarge)
             Text(
-                text = "v" + BuildConfig.VERSION_NAME,
+                text = "v$versionName",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
