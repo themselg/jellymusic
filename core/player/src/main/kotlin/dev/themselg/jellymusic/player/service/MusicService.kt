@@ -20,8 +20,14 @@ import com.google.common.collect.ImmutableList
 import com.google.common.util.concurrent.Futures
 import com.google.common.util.concurrent.ListenableFuture
 import dev.themselg.jellymusic.player.R
+import dev.themselg.jellymusic.player.Scrobbler
 import dev.themselg.jellymusic.player.cast.CastBridge
+import dev.themselg.jellymusic.domain.repository.PlaybackReporter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
 import javax.inject.Inject
 
 /**
@@ -36,10 +42,16 @@ import javax.inject.Inject
 class MusicService : MediaLibraryService() {
 
     @Inject lateinit var downloadCache: SimpleCache
+    @Inject lateinit var playbackReporter: PlaybackReporter
 
     private lateinit var player: ExoPlayer
     private lateinit var mediaLibrarySession: MediaLibrarySession
     private var castBridge: CastBridge? = null
+
+    // Reports playback to Jellyfin (scrobbling). Main.immediate so listener callbacks (already
+    // on the main thread) dispatch reporting without an extra hop; the reporter does its own IO.
+    private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+    private lateinit var scrobbler: Scrobbler
 
     override fun onCreate() {
         super.onCreate()
@@ -84,8 +96,10 @@ class MusicService : MediaLibraryService() {
         // swaps with the local player on session changes; the libre flavor returns a no-op.
         castBridge = connectCast(player) { setCurrentPlayer(it) }
 
-        // TODO(scrobbling): attach a Player.Listener here to report playback progress
-        //  (start / progress / stopped) back to Jellyfin's PlaybackInfo / Sessions API.
+        // Scrobbling: report start/progress/stopped to Jellyfin. Attached to the local player
+        // now and re-attached in setCurrentPlayer so it keeps reporting after a Cast swap.
+        scrobbler = Scrobbler(playbackReporter, serviceScope)
+        scrobbler.attach(player)
     }
 
     /**
@@ -115,6 +129,9 @@ class MusicService : MediaLibraryService() {
 
         mediaLibrarySession.player = newPlayer
 
+        // Keep scrobbling against the now-active player (local ↔ Cast).
+        scrobbler.attach(newPlayer)
+
         runCatching { oldPlayer.stop() }
         runCatching { oldPlayer.clearMediaItems() }
     }
@@ -123,6 +140,8 @@ class MusicService : MediaLibraryService() {
         mediaLibrarySession
 
     override fun onDestroy() {
+        scrobbler.release()
+        serviceScope.cancel()
         castBridge?.release()
         mediaLibrarySession.release()
         player.release()
