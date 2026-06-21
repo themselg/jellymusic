@@ -1,0 +1,128 @@
+<!-- Portuguese (Portugal) (pt-PT) translation. Machine-assisted — flagged terms need native review (see TRANSLATIONS.md). -->
+<resources>
+
+    <!-- Playback notification channel -->
+    <string name="playback_channel_name">Reprodução</string>
+
+    <!-- Login -->
+    <string name="login_title">Ligar ao Jellyfin</string>
+    <string name="login_server_hint">Endereço do servidor (https://…)</string>
+    <string name="login_username_hint">Nome de utilizador</string>
+    <string name="login_password_hint">Palavra-passe</string>
+    <string name="login_action">Iniciar sessão</string>
+
+    <!-- Library tabs -->
+    <string name="tab_albums">Álbuns</string>
+    <string name="tab_artists">Artistas</string>
+    <string name="tab_songs">Faixas</string>
+    <string name="tab_playlists">Listas de reprodução</string>
+    <string name="tab_favorites">Favoritos</string>
+
+    <!-- Common -->
+    <string name="search">Pesquisar</string>
+    <string name="settings">Definições</string>
+    <string name="library">Biblioteca</string>
+    <string name="profile">Perfil</string>
+    <string name="liked_songs">Faixas gostadas</string>
+    <string name="downloads">Transferências</string>
+    <string name="lyrics">Letra</string>
+    <string name="no_lyrics">Letra indisponível</string>
+    <string name="about">Acerca de</string>
+    <string name="version">Versão</string>
+    <string name="stat_playlists">Listas de reprodução</string>
+    <string name="stat_liked">Faixas gostadas</string>
+    <string name="download">Transferir</string>
+    <string name="remove_download">Remover transferência</string>
+    <string name="downloaded">Transferida</string>
+    <string name="downloading">A transferir…</string>
+    <string name="play">Reproduzir</string>
+    <string name="shuffle">Aleatório</string>
+    <string name="sign_out">Terminar sessão</string>
+    <string name="home">Início</string>
+    <string name="retry">Tentar novamente</string>
+    <string name="favorite">Adicionar aos favoritos</string>
+    <string name="unfavorite">Remover dos favoritos</string>
+    <string name="cd_album_art">Capa do álbum</string>
+    <string name="cd_play_pause">Reproduzir ou pausar</string>
+    <string name="cd_next">Faixa seguinte</string>
+    <string name="cd_previous">Faixa anterior</string>
+    <string name="cd_repeat">Repetir</string>
+    <string name="cd_shuffle">Aleatório</string>
+    <string name="cd_back">Voltar</string>
+    <string name="cd_queue">Fila</string>
+
+    <!-- States -->
+    <string name="loading">A carregar…</string>
+    <string name="error_generic">Ocorreu um erro</string>
+    <string name="empty_generic">Ainda não há nada aqui</string>
+
+    <!-- Library -->
+    <string name="recently_added">Adicionados recentemente</string>
+    <string name="empty_albums">Sem álbuns</string>
+    <string name="empty_artists">Sem artistas</string>
+    <string name="empty_songs">Sem faixas</string>
+    <string name="empty_playlists">Sem listas de reprodução</string>
+    <string name="empty_favorites">Ainda não há favoritos</string>
+
+    <!-- Search -->
+    <string name="search_hint">Pesquisar música</string>
+    <string name="search_prompt">Pesquisar artistas, álbuns e faixas</string>
+    <string name="search_no_results">Nenhum resultado encontrado</string>
+
+    <!-- Detail -->
+    <string name="albums">Álbuns</string>
+    <string name="top_songs">Faixas principais</string>
+    <string name="songs_count">%1$d faixas</string>
+
+    <!-- Now playing -->
+    <string name="now_playing">A reproduzir</string>
+    <string name="up_next">A seguir</string>
+    <string name="queue">Fila</string>
+    <string name="queue_source">A sua fila</string>
+
+    <!-- Playlist management -->
+    <string name="create_playlist">Nova lista de reprodução</string>
+    <string name="playlist_name_hint">Nome da lista de reprodução</string>
+    <string name="action_create">Criar</string>
+    <string name="action_cancel">Cancelar</string>
+    <string name="action_rename">Mudar o nome</string>
+    <string name="action_delete">Eliminar</string>
+    <string name="add_to_playlist">Adicionar à lista de reprodução</string>
+    <string name="remove_from_playlist">Remover da lista de reprodução</string>
+    <string name="delete_playlist_title">Eliminar a lista de reprodução?</string>
+    <string name="delete_playlist_message">Esta ação não pode ser anulada.</string>
+    <string name="added_to_playlist">Adicionada à lista de reprodução</string>
+    <string name="cd_more">Mais opções</string>
+
+    <!-- Cast -->
+    <string name="cast">Transmitir</string>
+    <string name="cast_to">Transmitir para</string>
+    <string name="stop_casting">Parar a transmissão</string>
+    <string name="close">Fechar</string>
+
+    <!-- Settings -->
+    <string name="settings_color_mode">Tema de cores</string>
+    <string name="settings_color_mode_caption">Escolha como o JellyMusic seleciona as suas cores.</string>
+    <string name="color_mode_system">Material You</string>
+    <string name="color_mode_system_caption">Seguir as cores da imagem de fundo do dispositivo.</string>
+    <string name="color_mode_album_art">Capa do álbum</string>
+    <string name="color_mode_album_art_caption">Recolorir toda a aplicação a partir da capa em reprodução.</string>
+    <string name="color_mode_static">Marca</string>
+    <string name="color_mode_static_caption">Uma paleta fixa do JellyMusic.</string>
+    <string name="settings_appearance">Aspeto</string>
+    <string name="dark_mode_system">Predefinição do sistema</string>
+    <string name="dark_mode_light">Claro</string>
+    <string name="dark_mode_dark">Escuro</string>
+    <string name="settings_amoled">Preto AMOLED</string>
+    <string name="settings_amoled_caption">Utilizar fundos verdadeiramente pretos no modo escuro.</string>
+    <string name="settings_account">Conta</string>
+
+    <!-- Settings: language -->
+    <string name="settings_language">Idioma</string>
+    <string name="language_system">Predefinição do sistema</string>
+
+    <plurals name="song_count">
+        <item quantity="one">%1$d faixa</item>
+        <item quantity="other">%1$d faixas</item>
+    </plurals>
+</resources>
