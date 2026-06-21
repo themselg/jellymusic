@@ -3,9 +3,11 @@
 
 package dev.themselg.jellymusic.ui.feature.profile
 
+import android.content.Intent
 import androidx.compose.ui.platform.LocalContext
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,8 +24,10 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material.icons.automirrored.rounded.OpenInNew
 import androidx.compose.material.icons.rounded.AccountCircle
 import androidx.compose.material.icons.rounded.Logout
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -34,6 +38,7 @@ import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -48,6 +53,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.core.net.toUri
 import androidx.core.os.LocaleListCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -118,6 +124,7 @@ fun ProfileScreen(
 
             SectionHeader(stringResource(R.string.about))
             AboutRow()
+            AcknowledgementsRow()
 
             SectionHeader(stringResource(R.string.settings_account))
             OutlinedButton(
@@ -260,6 +267,85 @@ private fun AboutRow() {
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
+    }
+}
+
+/** The third-party projects JellyMusic is built with. Each opens its homepage when tapped. */
+private val acknowledgements = listOf(
+    "Jellyfin" to "https://jellyfin.org",
+    "Jellyfin Kotlin SDK" to "https://github.com/jellyfin/jellyfin-sdk-kotlin",
+    "Coil" to "https://github.com/coil-kt/coil",
+    "OkHttp" to "https://github.com/square/okhttp",
+    "MaterialKolor" to "https://github.com/jordond/MaterialKolor",
+    "WavySlider" to "https://github.com/mahozad/wavy-slider",
+)
+
+/** A discreet About entry that opens the acknowledgements dialog. */
+@Composable
+private fun AcknowledgementsRow() {
+    var show by remember { mutableStateOf(false) }
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { show = true }
+            .padding(horizontal = 16.dp, vertical = 12.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Column(modifier = Modifier.weight(1f)) {
+            Text(stringResource(R.string.acknowledgements), style = MaterialTheme.typography.bodyLarge)
+            Text(
+                text = stringResource(R.string.acknowledgements_caption),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
+    }
+
+    if (show) {
+        AlertDialog(
+            onDismissRequest = { show = false },
+            title = { Text(stringResource(R.string.acknowledgements)) },
+            text = {
+                Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+                    acknowledgements.forEach { (name, url) ->
+                        AcknowledgementItem(name = name, url = url)
+                    }
+                }
+            },
+            confirmButton = {
+                TextButton(onClick = { show = false }) {
+                    Text(stringResource(R.string.close))
+                }
+            },
+        )
+    }
+}
+
+@Composable
+private fun AcknowledgementItem(name: String, url: String) {
+    val context = LocalContext.current
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable {
+                runCatching { context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri())) }
+            }
+            .padding(vertical = 10.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Column(modifier = Modifier.weight(1f)) {
+            Text(name, style = MaterialTheme.typography.bodyLarge)
+            Text(
+                text = url,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
+        Icon(
+            imageVector = Icons.AutoMirrored.Rounded.OpenInNew,
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
     }
 }
 

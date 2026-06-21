@@ -27,6 +27,8 @@
     <string name="no_lyrics">Sin letras</string>
     <string name="about">Acerca de</string>
     <string name="version">Versión</string>
+    <string name="acknowledgements">Créditos</string>
+    <string name="acknowledgements_caption">Proyectos de código abierto con los que está hecho JellyMusic</string>
     <string name="stat_playlists">Listas</string>
     <string name="stat_liked">Gustadas</string>
     <string name="download">Descargar</string>
