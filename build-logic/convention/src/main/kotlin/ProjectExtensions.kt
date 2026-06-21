@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Guillermo Themsel
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.api.artifacts.VersionCatalogsExtension

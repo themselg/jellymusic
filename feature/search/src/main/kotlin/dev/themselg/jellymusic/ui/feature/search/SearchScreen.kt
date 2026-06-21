@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 Guillermo Themsel
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 package dev.themselg.jellymusic.ui.feature.search
 
 import androidx.compose.foundation.layout.Arrangement

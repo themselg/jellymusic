@@ -71,3 +71,28 @@ Language can be changed in-app (Settings → *Idioma/Language*) or, on Android 1
 Settings → Apps → JellyMusic → Language. Switching is handled by
 `AppCompatDelegate.setApplicationLocales` (which is why `MainActivity` is an `AppCompatActivity` and
 the base theme parents `Theme.AppCompat.DayNight.NoActionBar`).
+
+## Acknowledgements
+
+- [Jellyfin](https://jellyfin.org)
+- [Jellyfin Kotlin SDK](https://github.com/jellyfin/jellyfin-sdk-kotlin)
+- [Coil](https://github.com/coil-kt/coil)
+- [OkHttp](https://github.com/square/okhttp)
+- [MaterialKolor](https://github.com/jordond/MaterialKolor)
+- [WavySlider](https://github.com/mahozad/wavy-slider)
+
+## License
+
+Copyright © 2026 Guillermo Themsel.
+
+JellyMusic is free software: you can redistribute it and/or modify it under the terms of the
+**GNU General Public License as published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version** (`GPL-3.0-or-later`). See [`LICENSE`](LICENSE) for
+the full text.
+
+It is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+The **`libre`** build flavor contains only GPL-compatible, open-source dependencies and is suitable
+for FOSS distribution (e.g. F-Droid). The **`proprietary`** flavor additionally links Google Cast
+(Google Play Services), which is not free software — distribute that flavor accordingly.
