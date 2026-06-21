@@ -21,7 +21,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import dev.themselg.jellymusic.R
+import dev.themselg.jellymusic.ui.R
 
 @Composable
 fun LoadingState(modifier: Modifier = Modifier) {

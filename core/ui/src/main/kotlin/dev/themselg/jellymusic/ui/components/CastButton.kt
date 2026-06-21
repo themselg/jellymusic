@@ -33,7 +33,7 @@ import androidx.mediarouter.media.MediaRouteSelector
 import androidx.mediarouter.media.MediaRouter
 import androidx.mediarouter.media.MediaRouter.RouteInfo
 import com.google.android.gms.cast.CastMediaControlIntent
-import dev.themselg.jellymusic.R
+import dev.themselg.jellymusic.ui.R
 import kotlin.math.roundToInt
 
 /**

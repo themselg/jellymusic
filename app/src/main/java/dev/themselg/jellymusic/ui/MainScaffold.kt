@@ -35,7 +35,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import dev.themselg.jellymusic.R
+import dev.themselg.jellymusic.ui.R
 import dev.themselg.jellymusic.ui.components.MiniPlayer
 import dev.themselg.jellymusic.ui.feature.detail.AlbumDetailScreen
 import dev.themselg.jellymusic.ui.feature.detail.ArtistDetailScreen

@@ -17,7 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
-import dev.themselg.jellymusic.R
+import dev.themselg.jellymusic.ui.R
 
 /**
  * Rounded album/artist/playlist artwork. Renders a music-note placeholder on a
