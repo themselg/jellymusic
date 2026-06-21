@@ -89,6 +89,7 @@
     <string name="clear_queue">Clear queue</string>
     <string name="save_as_playlist">Save as playlist</string>
     <string name="remove_from_queue">Remove from queue</string>
+    <string name="reorder">Reorder</string>
 
     <!-- Playlist management -->
     <string name="create_playlist">New playlist</string>

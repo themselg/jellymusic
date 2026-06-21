@@ -45,6 +45,9 @@ materialKolor = "2.1.1"
 # Android 13-style wavy progress/seek bar
 wavySlider = "2.2.0"
 
+# Drag-to-reorder for Compose lists (queue)
+reorderable = "2.4.3"
+
 # Testing
 junit = "4.13.2"
 androidxJunit = "1.2.1"
@@ -105,6 +108,9 @@ materialkolor = { group = "com.materialkolor", name = "material-kolor", version.
 
 # Wavy slider (Android 13-style squiggly progress)
 wavy-slider = { group = "ir.mahozad.multiplatform", name = "wavy-slider", version.ref = "wavySlider" }
+
+# Drag-to-reorder (Apache-2.0, FOSS) for the queue
+reorderable = { group = "sh.calvin.reorderable", name = "reorderable", version.ref = "reorderable" }
 
 # Testing
 junit = { group = "junit", name = "junit", version.ref = "junit" }

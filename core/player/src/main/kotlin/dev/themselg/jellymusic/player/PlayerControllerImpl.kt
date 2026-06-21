@@ -7,6 +7,7 @@ import android.content.ComponentName
 import android.content.Context
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
+import androidx.media3.common.Timeline
 import androidx.media3.session.MediaController
 import androidx.media3.session.SessionToken
 import com.google.common.util.concurrent.ListenableFuture
@@ -121,13 +122,15 @@ class PlayerControllerImpl @Inject constructor(
     }
 
     private fun buildQueue(c: MediaController): List<NowPlaying> {
-        val count = c.mediaItemCount
-        if (count == 0) return emptyList()
-        return (0 until count).map { index ->
-            // Per-item duration isn't reliably known for non-current windows; use C.TIME_UNSET
-            // semantics by reporting 0 unless it's the current item.
+        val timeline = c.currentTimeline
+        if (timeline.isEmpty) return emptyList()
+        val window = Timeline.Window()
+        return (0 until timeline.windowCount).map { index ->
+            timeline.getWindow(index, window)
+            // Per-item duration isn't reliably known for non-current windows; report 0 unless current.
             val duration = if (index == c.currentMediaItemIndex) c.duration else 0L
-            c.getMediaItemAt(index).toNowPlaying(duration)
+            // window.uid is a stable per-entry id, preserved across moves/removals.
+            window.mediaItem.toNowPlaying(duration, queueId = window.uid.toString())
         }
     }
 
@@ -230,7 +233,7 @@ private fun Int.toRepeatMode(): RepeatMode = when (this) {
     else -> RepeatMode.OFF
 }
 
-private fun MediaItem.toNowPlaying(durationMs: Long): NowPlaying {
+private fun MediaItem.toNowPlaying(durationMs: Long, queueId: String = ""): NowPlaying {
     val md = mediaMetadata
     return NowPlaying(
         mediaId = mediaId,
@@ -239,5 +242,6 @@ private fun MediaItem.toNowPlaying(durationMs: Long): NowPlaying {
         artworkUrl = md.artworkUri?.toString(),
         // controller.duration is C.TIME_UNSET (a large negative-ish sentinel) before ready.
         durationMs = durationMs.coerceAtLeast(0L),
+        queueId = queueId,
     )
 }

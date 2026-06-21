@@ -15,6 +15,12 @@ data class NowPlaying(
     val artist: String,
     val artworkUrl: String?,
     val durationMs: Long,
+    /**
+     * Stable identity of this entry *within the queue* (the Media3 timeline window uid). Unique
+     * even when the same track appears twice, and preserved across move/remove — used as the
+     * list/reorder key. Empty for the standalone now-playing snapshot.
+     */
+    val queueId: String = "",
 )
 
 /** Snapshot of playback state, mirrored from the MediaController. */
