@@ -49,7 +49,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
 import dev.themselg.jellymusic.BuildConfig
-import dev.themselg.jellymusic.R
+import dev.themselg.jellymusic.ui.R
 import dev.themselg.jellymusic.data.prefs.ColorMode
 import dev.themselg.jellymusic.data.prefs.DarkMode
 import dev.themselg.jellymusic.data.prefs.ThemeSettings

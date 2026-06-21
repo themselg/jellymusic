@@ -39,7 +39,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import dev.themselg.jellymusic.R
+import dev.themselg.jellymusic.ui.R
 import dev.themselg.jellymusic.player.NowPlaying
 import dev.themselg.jellymusic.player.RepeatMode
 import dev.themselg.jellymusic.ui.components.CoverArt

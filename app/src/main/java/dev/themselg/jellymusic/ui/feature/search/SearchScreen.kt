@@ -29,7 +29,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import dev.themselg.jellymusic.R
+import dev.themselg.jellymusic.ui.R
 import dev.themselg.jellymusic.domain.model.SearchResults
 import dev.themselg.jellymusic.domain.model.Song
 import dev.themselg.jellymusic.ui.components.AlbumCard

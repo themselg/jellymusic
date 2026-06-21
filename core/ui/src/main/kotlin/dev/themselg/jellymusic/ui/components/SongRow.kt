@@ -33,7 +33,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import dev.themselg.jellymusic.R
+import dev.themselg.jellymusic.ui.R
 import dev.themselg.jellymusic.data.download.DownloadStatus
 import dev.themselg.jellymusic.domain.model.Song
 
@@ -169,7 +169,7 @@ fun SongRow(
     }
 }
 
-internal fun formatDuration(durationMs: Long): String {
+fun formatDuration(durationMs: Long): String {
     val totalSeconds = (durationMs / 1000).coerceAtLeast(0)
     val minutes = totalSeconds / 60
     val seconds = totalSeconds % 60

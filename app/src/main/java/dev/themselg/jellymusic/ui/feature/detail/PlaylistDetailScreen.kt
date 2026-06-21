@@ -28,7 +28,7 @@ import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import dev.themselg.jellymusic.R
+import dev.themselg.jellymusic.ui.R
 import dev.themselg.jellymusic.ui.components.ErrorState
 import dev.themselg.jellymusic.ui.components.LoadingState
 import dev.themselg.jellymusic.ui.components.PlaylistNameDialog

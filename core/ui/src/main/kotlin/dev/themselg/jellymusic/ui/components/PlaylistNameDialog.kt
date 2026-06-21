@@ -10,7 +10,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.stringResource
-import dev.themselg.jellymusic.R
+import dev.themselg.jellymusic.ui.R
 
 /** Reusable name dialog for creating or renaming a playlist. */
 @Composable

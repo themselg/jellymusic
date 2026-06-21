@@ -45,7 +45,7 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import dev.themselg.jellymusic.R
+import dev.themselg.jellymusic.ui.R
 import dev.themselg.jellymusic.domain.model.Artist
 import dev.themselg.jellymusic.domain.model.Song
 import dev.themselg.jellymusic.ui.components.AlbumCard
