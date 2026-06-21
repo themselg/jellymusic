@@ -1,0 +1,128 @@
+<!-- Turkish (tr) translation. Machine-assisted — flagged terms need native review (see TRANSLATIONS.md). -->
+<resources>
+
+    <!-- Playback notification channel -->
+    <string name="playback_channel_name">Oynatma</string>
+
+    <!-- Login -->
+    <string name="login_title">Jellyfin\'e bağlan</string>
+    <string name="login_server_hint">Sunucu adresi (https://…)</string>
+    <string name="login_username_hint">Kullanıcı adı</string>
+    <string name="login_password_hint">Parola</string>
+    <string name="login_action">Oturum aç</string>
+
+    <!-- Library tabs -->
+    <string name="tab_albums">Albümler</string>
+    <string name="tab_artists">Sanatçılar</string>
+    <string name="tab_songs">Şarkılar</string>
+    <string name="tab_playlists">Çalma listeleri</string>
+    <string name="tab_favorites">Favoriler</string>
+
+    <!-- Common -->
+    <string name="search">Ara</string>
+    <string name="settings">Ayarlar</string>
+    <string name="library">Kitaplık</string>
+    <string name="profile">Profil</string>
+    <string name="liked_songs">Beğenilen şarkılar</string>
+    <string name="downloads">İndirilenler</string>
+    <string name="lyrics">Şarkı sözleri</string>
+    <string name="no_lyrics">Şarkı sözü yok</string>
+    <string name="about">Hakkında</string>
+    <string name="version">Sürüm</string>
+    <string name="stat_playlists">Çalma listeleri</string>
+    <string name="stat_liked">Beğenilen şarkılar</string>
+    <string name="download">İndir</string>
+    <string name="remove_download">İndirileni kaldır</string>
+    <string name="downloaded">İndirildi</string>
+    <string name="downloading">İndiriliyor…</string>
+    <string name="play">Çal</string>
+    <string name="shuffle">Karıştır</string>
+    <string name="sign_out">Oturumu kapat</string>
+    <string name="home">Ana sayfa</string>
+    <string name="retry">Yeniden dene</string>
+    <string name="favorite">Favorilere ekle</string>
+    <string name="unfavorite">Favorilerden kaldır</string>
+    <string name="cd_album_art">Albüm kapağı</string>
+    <string name="cd_play_pause">Çal veya duraklat</string>
+    <string name="cd_next">Sonraki parça</string>
+    <string name="cd_previous">Önceki parça</string>
+    <string name="cd_repeat">Tekrarla</string>
+    <string name="cd_shuffle">Karıştır</string>
+    <string name="cd_back">Geri</string>
+    <string name="cd_queue">Sıra</string>
+
+    <!-- States -->
+    <string name="loading">Yükleniyor…</string>
+    <string name="error_generic">Bir şeyler ters gitti</string>
+    <string name="empty_generic">Burada henüz bir şey yok</string>
+
+    <!-- Library -->
+    <string name="recently_added">Yakın zamanda eklenenler</string>
+    <string name="empty_albums">Albüm yok</string>
+    <string name="empty_artists">Sanatçı yok</string>
+    <string name="empty_songs">Şarkı yok</string>
+    <string name="empty_playlists">Çalma listesi yok</string>
+    <string name="empty_favorites">Henüz favori yok</string>
+
+    <!-- Search -->
+    <string name="search_hint">Müzik ara</string>
+    <string name="search_prompt">Sanatçı, albüm ve şarkı ara</string>
+    <string name="search_no_results">Sonuç bulunamadı</string>
+
+    <!-- Detail -->
+    <string name="albums">Albümler</string>
+    <string name="top_songs">En iyi şarkılar</string>
+    <string name="songs_count">%1$d şarkı</string>
+
+    <!-- Now playing -->
+    <string name="now_playing">Şimdi çalıyor</string>
+    <string name="up_next">Sıradaki</string>
+    <string name="queue">Sıra</string>
+    <string name="queue_source">Sıranız</string>
+
+    <!-- Playlist management -->
+    <string name="create_playlist">Yeni çalma listesi</string>
+    <string name="playlist_name_hint">Çalma listesi adı</string>
+    <string name="action_create">Oluştur</string>
+    <string name="action_cancel">İptal</string>
+    <string name="action_rename">Yeniden adlandır</string>
+    <string name="action_delete">Sil</string>
+    <string name="add_to_playlist">Çalma listesine ekle</string>
+    <string name="remove_from_playlist">Çalma listesinden kaldır</string>
+    <string name="delete_playlist_title">Çalma listesi silinsin mi?</string>
+    <string name="delete_playlist_message">Bu işlem geri alınamaz.</string>
+    <string name="added_to_playlist">Çalma listesine eklendi</string>
+    <string name="cd_more">Diğer seçenekler</string>
+
+    <!-- Cast -->
+    <string name="cast">Yayınla</string>
+    <string name="cast_to">Şuraya yayınla</string>
+    <string name="stop_casting">Yayını durdur</string>
+    <string name="close">Kapat</string>
+
+    <!-- Settings -->
+    <string name="settings_color_mode">Renk teması</string>
+    <string name="settings_color_mode_caption">JellyMusic\'in renklerini nasıl seçeceğini belirleyin.</string>
+    <string name="color_mode_system">Material You</string>
+    <string name="color_mode_system_caption">Cihazınızın duvar kağıdı renklerini izleyin.</string>
+    <string name="color_mode_album_art">Albüm kapağı</string>
+    <string name="color_mode_album_art_caption">Tüm uygulamayı çalan kapağa göre renklendirin.</string>
+    <string name="color_mode_static">Marka</string>
+    <string name="color_mode_static_caption">Sabit bir JellyMusic renk paleti.</string>
+    <string name="settings_appearance">Görünüm</string>
+    <string name="dark_mode_system">Sistem varsayılanı</string>
+    <string name="dark_mode_light">Açık</string>
+    <string name="dark_mode_dark">Koyu</string>
+    <string name="settings_amoled">AMOLED siyah</string>
+    <string name="settings_amoled_caption">Koyu modda gerçek siyah arka planlar kullanın.</string>
+    <string name="settings_account">Hesap</string>
+
+    <!-- Settings: language -->
+    <string name="settings_language">Dil</string>
+    <string name="language_system">Sistem varsayılanı</string>
+
+    <plurals name="song_count">
+        <item quantity="one">%1$d şarkı</item>
+        <item quantity="other">%1$d şarkı</item>
+    </plurals>
+</resources>

@@ -1,0 +1,127 @@
+<!-- Japanese (ja) translation. Machine-assisted — flagged terms need native review (see TRANSLATIONS.md). -->
+<resources>
+
+    <!-- Playback notification channel -->
+    <string name="playback_channel_name">再生</string>
+
+    <!-- Login -->
+    <string name="login_title">Jellyfin に接続</string>
+    <string name="login_server_hint">サーバーアドレス (https://…)</string>
+    <string name="login_username_hint">ユーザー名</string>
+    <string name="login_password_hint">パスワード</string>
+    <string name="login_action">サインイン</string>
+
+    <!-- Library tabs -->
+    <string name="tab_albums">アルバム</string>
+    <string name="tab_artists">アーティスト</string>
+    <string name="tab_songs">曲</string>
+    <string name="tab_playlists">プレイリスト</string>
+    <string name="tab_favorites">お気に入り</string>
+
+    <!-- Common -->
+    <string name="search">検索</string>
+    <string name="settings">設定</string>
+    <string name="library">ライブラリ</string>
+    <string name="profile">プロフィール</string>
+    <string name="liked_songs">お気に入りの曲</string>
+    <string name="downloads">ダウンロード</string>
+    <string name="lyrics">歌詞</string>
+    <string name="no_lyrics">歌詞はありません</string>
+    <string name="about">アプリについて</string>
+    <string name="version">バージョン</string>
+    <string name="stat_playlists">プレイリスト</string>
+    <string name="stat_liked">お気に入りの曲</string>
+    <string name="download">ダウンロード</string>
+    <string name="remove_download">ダウンロードを削除</string>
+    <string name="downloaded">ダウンロード済み</string>
+    <string name="downloading">ダウンロード中…</string>
+    <string name="play">再生</string>
+    <string name="shuffle">シャッフル</string>
+    <string name="sign_out">サインアウト</string>
+    <string name="home">ホーム</string>
+    <string name="retry">再試行</string>
+    <string name="favorite">お気に入り</string>
+    <string name="unfavorite">お気に入りから削除</string>
+    <string name="cd_album_art">アルバムアート</string>
+    <string name="cd_play_pause">再生または一時停止</string>
+    <string name="cd_next">次の曲</string>
+    <string name="cd_previous">前の曲</string>
+    <string name="cd_repeat">リピート</string>
+    <string name="cd_shuffle">シャッフル</string>
+    <string name="cd_back">戻る</string>
+    <string name="cd_queue">再生キュー</string>
+
+    <!-- States -->
+    <string name="loading">読み込み中…</string>
+    <string name="error_generic">問題が発生しました</string>
+    <string name="empty_generic">まだ何もありません</string>
+
+    <!-- Library -->
+    <string name="recently_added">最近追加</string>
+    <string name="empty_albums">アルバムはありません</string>
+    <string name="empty_artists">アーティストはいません</string>
+    <string name="empty_songs">曲はありません</string>
+    <string name="empty_playlists">プレイリストはありません</string>
+    <string name="empty_favorites">お気に入りはまだありません</string>
+
+    <!-- Search -->
+    <string name="search_hint">音楽を検索</string>
+    <string name="search_prompt">アーティスト、アルバム、曲を検索</string>
+    <string name="search_no_results">結果が見つかりません</string>
+
+    <!-- Detail -->
+    <string name="albums">アルバム</string>
+    <string name="top_songs">人気の曲</string>
+    <string name="songs_count">%1$d 曲</string>
+
+    <!-- Now playing -->
+    <string name="now_playing">再生中</string>
+    <string name="up_next">次に再生</string>
+    <string name="queue">再生キュー</string>
+    <string name="queue_source">再生キュー</string>
+
+    <!-- Playlist management -->
+    <string name="create_playlist">新しいプレイリスト</string>
+    <string name="playlist_name_hint">プレイリスト名</string>
+    <string name="action_create">作成</string>
+    <string name="action_cancel">キャンセル</string>
+    <string name="action_rename">名前を変更</string>
+    <string name="action_delete">削除</string>
+    <string name="add_to_playlist">プレイリストに追加</string>
+    <string name="remove_from_playlist">プレイリストから削除</string>
+    <string name="delete_playlist_title">プレイリストを削除しますか？</string>
+    <string name="delete_playlist_message">この操作は元に戻せません。</string>
+    <string name="added_to_playlist">プレイリストに追加しました</string>
+    <string name="cd_more">その他のオプション</string>
+
+    <!-- Cast -->
+    <string name="cast">キャスト</string>
+    <string name="cast_to">キャスト先</string>
+    <string name="stop_casting">キャストを停止</string>
+    <string name="close">閉じる</string>
+
+    <!-- Settings -->
+    <string name="settings_color_mode">カラーテーマ</string>
+    <string name="settings_color_mode_caption">JellyMusic の配色の決め方を選択します。</string>
+    <string name="color_mode_system">Material You</string>
+    <string name="color_mode_system_caption">デバイスの壁紙の色に合わせます。</string>
+    <string name="color_mode_album_art">アルバムアート</string>
+    <string name="color_mode_album_art_caption">再生中のカバーからアプリ全体を再着色します。</string>
+    <string name="color_mode_static">ブランド</string>
+    <string name="color_mode_static_caption">固定の JellyMusic カラーパレット。</string>
+    <string name="settings_appearance">外観</string>
+    <string name="dark_mode_system">システムのデフォルト</string>
+    <string name="dark_mode_light">ライト</string>
+    <string name="dark_mode_dark">ダーク</string>
+    <string name="settings_amoled">AMOLED ブラック</string>
+    <string name="settings_amoled_caption">ダークモードで完全な黒の背景を使用します。</string>
+    <string name="settings_account">アカウント</string>
+
+    <!-- Settings: language -->
+    <string name="settings_language">言語</string>
+    <string name="language_system">システムのデフォルト</string>
+
+    <plurals name="song_count">
+        <item quantity="other">%1$d 曲</item>
+    </plurals>
+</resources>

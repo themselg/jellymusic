@@ -6,6 +6,7 @@ package dev.themselg.jellymusic.ui.feature.profile
 import androidx.compose.ui.platform.LocalContext
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,7 +24,9 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.AccountCircle
+import androidx.compose.material.icons.rounded.ArrowDropDown
 import androidx.compose.material.icons.rounded.Logout
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -34,6 +37,7 @@ import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -407,29 +411,83 @@ private fun LanguageSection() {
         "" to R.string.language_system,
         "en" to R.string.language_english,
         "es" to R.string.language_spanish,
+        "de" to R.string.language_german,
+        "fr" to R.string.language_french,
+        "it" to R.string.language_italian,
+        "nl" to R.string.language_dutch,
+        "pl" to R.string.language_polish,
+        "pt-BR" to R.string.language_portuguese_br,
+        "pt-PT" to R.string.language_portuguese_pt,
+        "ru" to R.string.language_russian,
+        "uk" to R.string.language_ukrainian,
+        "tr" to R.string.language_turkish,
+        "zh-CN" to R.string.language_chinese_simplified,
+        "ja" to R.string.language_japanese,
+        "ko" to R.string.language_korean,
     )
     var currentTag by remember {
-        val tag = AppCompatDelegate.getApplicationLocales().toLanguageTags()
-        mutableStateOf(
-            when {
-                tag.startsWith("es") -> "es"
-                tag.startsWith("en") -> "en"
-                else -> ""
-            },
+        // Match the active locale against the option tags, preferring the longest match so
+        // region variants (pt-BR / pt-PT, zh-CN) win over a bare language prefix.
+        val active = AppCompatDelegate.getApplicationLocales().toLanguageTags()
+        val match = options.map { it.first }
+            .filter { it.isNotEmpty() }
+            .sortedByDescending { it.length }
+            .firstOrNull { active.startsWith(it, ignoreCase = true) }
+            .orEmpty()
+        mutableStateOf(match)
+    }
+    var showDialog by remember { mutableStateOf(false) }
+    val currentLabelRes = options.firstOrNull { it.first == currentTag }?.second
+        ?: R.string.language_system
+
+    // Discreet entry: a single row showing the current language; tap to open the picker dialog.
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { showDialog = true }
+            .padding(horizontal = 16.dp, vertical = 12.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Text(
+            text = stringResource(currentLabelRes),
+            style = MaterialTheme.typography.bodyLarge,
+            modifier = Modifier.weight(1f),
+        )
+        Icon(
+            imageVector = Icons.Rounded.ArrowDropDown,
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.onSurfaceVariant,
         )
     }
-    options.forEach { (tag, labelRes) ->
-        LanguageRow(
-            labelRes = labelRes,
-            selected = currentTag == tag,
-            onClick = {
-                currentTag = tag
-                val locales = if (tag.isEmpty()) {
-                    LocaleListCompat.getEmptyLocaleList()
-                } else {
-                    LocaleListCompat.forLanguageTags(tag)
+
+    if (showDialog) {
+        AlertDialog(
+            onDismissRequest = { showDialog = false },
+            title = { Text(stringResource(R.string.settings_language)) },
+            text = {
+                Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+                    options.forEach { (tag, labelRes) ->
+                        LanguageRow(
+                            labelRes = labelRes,
+                            selected = currentTag == tag,
+                            onClick = {
+                                currentTag = tag
+                                val locales = if (tag.isEmpty()) {
+                                    LocaleListCompat.getEmptyLocaleList()
+                                } else {
+                                    LocaleListCompat.forLanguageTags(tag)
+                                }
+                                showDialog = false
+                                AppCompatDelegate.setApplicationLocales(locales)
+                            },
+                        )
+                    }
                 }
-                AppCompatDelegate.setApplicationLocales(locales)
+            },
+            confirmButton = {
+                TextButton(onClick = { showDialog = false }) {
+                    Text(stringResource(R.string.action_cancel))
+                }
             },
         )
     }

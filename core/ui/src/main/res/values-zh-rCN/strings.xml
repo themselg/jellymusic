@@ -1,0 +1,127 @@
+<!-- Simplified Chinese (zh-CN) translation. Machine-assisted — flagged terms need native review (see TRANSLATIONS.md). -->
+<resources>
+
+    <!-- Playback notification channel -->
+    <string name="playback_channel_name">播放</string>
+
+    <!-- Login -->
+    <string name="login_title">连接到 Jellyfin</string>
+    <string name="login_server_hint">服务器地址（https://…）</string>
+    <string name="login_username_hint">用户名</string>
+    <string name="login_password_hint">密码</string>
+    <string name="login_action">登录</string>
+
+    <!-- Library tabs -->
+    <string name="tab_albums">专辑</string>
+    <string name="tab_artists">艺术家</string>
+    <string name="tab_songs">歌曲</string>
+    <string name="tab_playlists">播放列表</string>
+    <string name="tab_favorites">收藏</string>
+
+    <!-- Common -->
+    <string name="search">搜索</string>
+    <string name="settings">设置</string>
+    <string name="library">音乐库</string>
+    <string name="profile">个人资料</string>
+    <string name="liked_songs">我喜欢的歌曲</string>
+    <string name="downloads">下载</string>
+    <string name="lyrics">歌词</string>
+    <string name="no_lyrics">暂无歌词</string>
+    <string name="about">关于</string>
+    <string name="version">版本</string>
+    <string name="stat_playlists">播放列表</string>
+    <string name="stat_liked">我喜欢的歌曲</string>
+    <string name="download">下载</string>
+    <string name="remove_download">删除下载</string>
+    <string name="downloaded">已下载</string>
+    <string name="downloading">正在下载…</string>
+    <string name="play">播放</string>
+    <string name="shuffle">随机播放</string>
+    <string name="sign_out">退出登录</string>
+    <string name="home">主页</string>
+    <string name="retry">重试</string>
+    <string name="favorite">收藏</string>
+    <string name="unfavorite">取消收藏</string>
+    <string name="cd_album_art">专辑封面</string>
+    <string name="cd_play_pause">播放或暂停</string>
+    <string name="cd_next">下一首</string>
+    <string name="cd_previous">上一首</string>
+    <string name="cd_repeat">循环</string>
+    <string name="cd_shuffle">随机播放</string>
+    <string name="cd_back">返回</string>
+    <string name="cd_queue">播放队列</string>
+
+    <!-- States -->
+    <string name="loading">正在加载…</string>
+    <string name="error_generic">出现错误</string>
+    <string name="empty_generic">这里还没有内容</string>
+
+    <!-- Library -->
+    <string name="recently_added">最近添加</string>
+    <string name="empty_albums">没有专辑</string>
+    <string name="empty_artists">没有艺术家</string>
+    <string name="empty_songs">没有歌曲</string>
+    <string name="empty_playlists">没有播放列表</string>
+    <string name="empty_favorites">还没有收藏</string>
+
+    <!-- Search -->
+    <string name="search_hint">搜索音乐</string>
+    <string name="search_prompt">搜索艺术家、专辑和歌曲</string>
+    <string name="search_no_results">未找到结果</string>
+
+    <!-- Detail -->
+    <string name="albums">专辑</string>
+    <string name="top_songs">热门歌曲</string>
+    <string name="songs_count">%1$d 首歌曲</string>
+
+    <!-- Now playing -->
+    <string name="now_playing">正在播放</string>
+    <string name="up_next">即将播放</string>
+    <string name="queue">播放队列</string>
+    <string name="queue_source">你的播放队列</string>
+
+    <!-- Playlist management -->
+    <string name="create_playlist">新建播放列表</string>
+    <string name="playlist_name_hint">播放列表名称</string>
+    <string name="action_create">创建</string>
+    <string name="action_cancel">取消</string>
+    <string name="action_rename">重命名</string>
+    <string name="action_delete">删除</string>
+    <string name="add_to_playlist">添加到播放列表</string>
+    <string name="remove_from_playlist">从播放列表中移除</string>
+    <string name="delete_playlist_title">删除播放列表？</string>
+    <string name="delete_playlist_message">此操作无法撤销。</string>
+    <string name="added_to_playlist">已添加到播放列表</string>
+    <string name="cd_more">更多选项</string>
+
+    <!-- Cast -->
+    <string name="cast">投放</string>
+    <string name="cast_to">投放到</string>
+    <string name="stop_casting">停止投放</string>
+    <string name="close">关闭</string>
+
+    <!-- Settings -->
+    <string name="settings_color_mode">配色主题</string>
+    <string name="settings_color_mode_caption">选择 JellyMusic 的取色方式。</string>
+    <string name="color_mode_system">Material You</string>
+    <string name="color_mode_system_caption">跟随设备壁纸颜色。</string>
+    <string name="color_mode_album_art">专辑封面</string>
+    <string name="color_mode_album_art_caption">根据正在播放的封面为整个应用重新配色。</string>
+    <string name="color_mode_static">品牌色</string>
+    <string name="color_mode_static_caption">固定的 JellyMusic 配色方案。</string>
+    <string name="settings_appearance">外观</string>
+    <string name="dark_mode_system">跟随系统</string>
+    <string name="dark_mode_light">浅色</string>
+    <string name="dark_mode_dark">深色</string>
+    <string name="settings_amoled">AMOLED 纯黑</string>
+    <string name="settings_amoled_caption">在深色模式下使用纯黑背景。</string>
+    <string name="settings_account">账户</string>
+
+    <!-- Settings: language -->
+    <string name="settings_language">语言</string>
+    <string name="language_system">跟随系统</string>
+
+    <plurals name="song_count">
+        <item quantity="other">%1$d 首歌曲</item>
+    </plurals>
+</resources>
