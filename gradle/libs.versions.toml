@@ -45,6 +45,9 @@ materialKolor = "2.1.1"
 # Android 13-style wavy progress/seek bar
 wavySlider = "2.2.0"
 
+# Drag-to-reorder for Compose lists (queue)
+reorderable = "2.4.3"
+
 # Jetpack Paging 3
 paging = "3.3.6"
 
@@ -109,6 +112,9 @@ materialkolor = { group = "com.materialkolor", name = "material-kolor", version.
 
 # Wavy slider (Android 13-style squiggly progress)
 wavy-slider = { group = "ir.mahozad.multiplatform", name = "wavy-slider", version.ref = "wavySlider" }
+
+# Drag-to-reorder (Apache-2.0, FOSS) for the queue
+reorderable = { group = "sh.calvin.reorderable", name = "reorderable", version.ref = "reorderable" }
 
 # Paging 3: paging-common is pure-JVM (usable from :core:domain/:core:data); compose for the UI
 androidx-paging-common = { group = "androidx.paging", name = "paging-common", version.ref = "paging" }

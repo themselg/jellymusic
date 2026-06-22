@@ -15,9 +15,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Delete
+import androidx.compose.material.icons.rounded.DragHandle
 import androidx.compose.material.icons.rounded.GraphicEq
 import androidx.compose.material.icons.rounded.KeyboardArrowDown
 import androidx.compose.material.icons.rounded.MoreVert
@@ -58,6 +60,8 @@ import dev.themselg.jellymusic.player.RepeatMode
 import dev.themselg.jellymusic.ui.components.CoverArt
 import dev.themselg.jellymusic.ui.components.PlaylistNameDialog
 import dev.themselg.jellymusic.ui.components.formatDuration
+import sh.calvin.reorderable.ReorderableItem
+import sh.calvin.reorderable.rememberReorderableLazyListState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -155,34 +159,55 @@ fun QueueScreen(
             }
         },
     ) { innerPadding ->
+        val listState = rememberLazyListState()
+        val reorderState = rememberReorderableLazyListState(listState) { from, to ->
+            viewModel.moveQueueItem(from.index, to.index)
+        }
         LazyColumn(
+            state = listState,
             modifier = Modifier.fillMaxWidth(),
             contentPadding = innerPadding,
         ) {
             itemsIndexed(
                 items = queue,
-                key = { index, item -> "${index}_${item.mediaId}" },
+                // Stable per-entry key (the timeline window uid) so reorder/remove track items
+                // correctly even when the same song appears twice.
+                key = { _, item -> item.queueId },
             ) { index, item ->
-                val dismissState = rememberSwipeToDismissBoxState(
-                    confirmValueChange = { value ->
-                        if (value == SwipeToDismissBoxValue.EndToStart) {
-                            viewModel.removeQueueItem(index)
-                            true
-                        } else {
-                            false
-                        }
-                    },
-                )
-                SwipeToDismissBox(
-                    state = dismissState,
-                    enableDismissFromStartToEnd = false,
-                    backgroundContent = { SwipeToRemoveBackground() },
-                ) {
-                    QueueItemRow(
-                        item = item,
-                        isCurrent = item.mediaId == nowPlaying?.mediaId,
-                        onClick = { viewModel.seekToQueueItem(index) },
+                ReorderableItem(reorderState, key = item.queueId) {
+                    val dismissState = rememberSwipeToDismissBoxState(
+                        confirmValueChange = { value ->
+                            if (value == SwipeToDismissBoxValue.EndToStart) {
+                                viewModel.removeQueueItem(index)
+                                true
+                            } else {
+                                false
+                            }
+                        },
                     )
+                    SwipeToDismissBox(
+                        state = dismissState,
+                        enableDismissFromStartToEnd = false,
+                        backgroundContent = { SwipeToRemoveBackground() },
+                    ) {
+                        QueueItemRow(
+                            item = item,
+                            isCurrent = item.mediaId == nowPlaying?.mediaId,
+                            onClick = { viewModel.seekToQueueItem(index) },
+                            dragHandle = {
+                                IconButton(
+                                    onClick = {},
+                                    modifier = Modifier.draggableHandle(),
+                                ) {
+                                    Icon(
+                                        Icons.Rounded.DragHandle,
+                                        contentDescription = stringResource(R.string.reorder),
+                                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    )
+                                }
+                            },
+                        )
+                    }
                 }
             }
         }
@@ -227,16 +252,21 @@ private fun QueueItemRow(
     item: NowPlaying,
     isCurrent: Boolean,
     onClick: () -> Unit,
+    dragHandle: @Composable () -> Unit = {},
 ) {
+    // Opaque background so the swipe-to-remove background only shows while swiping.
+    val rowColor = if (isCurrent) {
+        MaterialTheme.colorScheme.surfaceContainerHighest
+    } else {
+        MaterialTheme.colorScheme.surface
+    }
     val rowModifier = Modifier
         .fillMaxWidth()
         .padding(horizontal = 12.dp, vertical = 4.dp)
         .clip(RoundedCornerShape(12.dp))
-        .let {
-            if (isCurrent) it.background(MaterialTheme.colorScheme.surfaceContainerHighest) else it
-        }
+        .background(rowColor)
         .clickable(onClick = onClick)
-        .padding(horizontal = 8.dp, vertical = 8.dp)
+        .padding(start = 8.dp, end = 4.dp, top = 8.dp, bottom = 8.dp)
 
     Row(
         modifier = rowModifier,
@@ -283,6 +313,7 @@ private fun QueueItemRow(
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
+        dragHandle()
     }
 }
 
