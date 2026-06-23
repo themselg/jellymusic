@@ -9,6 +9,7 @@ import dev.themselg.jellymusic.domain.repository.FavoritesRepository
 import dev.themselg.jellymusic.player.NowPlaying
 import dev.themselg.jellymusic.player.PlaybackState
 import dev.themselg.jellymusic.player.PlayerController
+import dev.themselg.jellymusic.player.SleepTimerState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -27,6 +28,7 @@ class NowPlayingViewModel @Inject constructor(
     val nowPlaying: StateFlow<NowPlaying?> = playerController.nowPlaying
     val playbackState: StateFlow<PlaybackState> = playerController.playbackState
     val queue: StateFlow<List<NowPlaying>> = playerController.queue
+    val sleepTimer: StateFlow<SleepTimerState> = playerController.sleepTimer
 
     private val _isFavorite = MutableStateFlow(false)
     val isFavorite: StateFlow<Boolean> = _isFavorite.asStateFlow()
@@ -52,6 +54,10 @@ class NowPlayingViewModel @Inject constructor(
     fun seekToQueueItem(index: Int) = playerController.seekToQueueItem(index)
     fun toggleShuffle() = playerController.toggleShuffle()
     fun cycleRepeatMode() = playerController.cycleRepeatMode()
+
+    fun setSleepTimer(durationMs: Long) = playerController.setSleepTimer(durationMs)
+    fun setSleepTimerEndOfTrack() = playerController.setSleepTimerEndOfTrack()
+    fun cancelSleepTimer() = playerController.cancelSleepTimer()
 
     fun toggleFavorite() {
         val id = nowPlaying.value?.mediaId ?: return

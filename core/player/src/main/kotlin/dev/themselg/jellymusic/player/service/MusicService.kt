@@ -21,6 +21,7 @@ import com.google.common.util.concurrent.Futures
 import com.google.common.util.concurrent.ListenableFuture
 import dev.themselg.jellymusic.player.R
 import dev.themselg.jellymusic.player.Scrobbler
+import dev.themselg.jellymusic.player.SleepTimer
 import dev.themselg.jellymusic.player.cast.CastBridge
 import dev.themselg.jellymusic.domain.repository.PlaybackReporter
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,6 +44,7 @@ class MusicService : MediaLibraryService() {
 
     @Inject lateinit var downloadCache: SimpleCache
     @Inject lateinit var playbackReporter: PlaybackReporter
+    @Inject lateinit var sleepTimer: SleepTimer
 
     private lateinit var player: ExoPlayer
     private lateinit var mediaLibrarySession: MediaLibrarySession
@@ -52,6 +54,22 @@ class MusicService : MediaLibraryService() {
     // on the main thread) dispatch reporting without an extra hop; the reporter does its own IO.
     private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
     private lateinit var scrobbler: Scrobbler
+
+    /**
+     * Feeds natural track-end events to the [sleepTimer] so an "end of track" timer fires only
+     * when a track finishes by itself — never on a manual skip (which is a SEEK transition, not
+     * AUTO). Re-attached to whichever player is active after a Cast swap.
+     */
+    private val sleepListener = object : Player.Listener {
+        override fun onMediaItemTransition(mediaItem: MediaItem?, reason: Int) {
+            if (reason == Player.MEDIA_ITEM_TRANSITION_REASON_AUTO) sleepTimer.onTrackEndedNaturally()
+        }
+
+        override fun onPlaybackStateChanged(playbackState: Int) {
+            // Last track of the queue finished and nothing follows.
+            if (playbackState == Player.STATE_ENDED) sleepTimer.onTrackEndedNaturally()
+        }
+    }
 
     override fun onCreate() {
         super.onCreate()
@@ -100,6 +118,11 @@ class MusicService : MediaLibraryService() {
         // now and re-attached in setCurrentPlayer so it keeps reporting after a Cast swap.
         scrobbler = Scrobbler(playbackReporter, serviceScope)
         scrobbler.attach(player)
+
+        // Sleep timer: pause whatever player is active (local or Cast) when it fires, and feed it
+        // natural track-end events. The countdown lives in the SleepTimer singleton.
+        sleepTimer.onExpire = { runCatching { mediaLibrarySession.player.pause() } }
+        player.addListener(sleepListener)
     }
 
     /**
@@ -132,6 +155,10 @@ class MusicService : MediaLibraryService() {
         // Keep scrobbling against the now-active player (local ↔ Cast).
         scrobbler.attach(newPlayer)
 
+        // Keep the sleep timer's track-end detection on the active player too.
+        runCatching { oldPlayer.removeListener(sleepListener) }
+        newPlayer.addListener(sleepListener)
+
         runCatching { oldPlayer.stop() }
         runCatching { oldPlayer.clearMediaItems() }
     }
@@ -141,6 +168,9 @@ class MusicService : MediaLibraryService() {
 
     override fun onDestroy() {
         scrobbler.release()
+        sleepTimer.cancel()
+        sleepTimer.onExpire = null
+        runCatching { mediaLibrarySession.player.removeListener(sleepListener) }
         serviceScope.cancel()
         castBridge?.release()
         mediaLibrarySession.release()

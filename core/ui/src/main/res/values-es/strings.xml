@@ -50,6 +50,12 @@
     <string name="cd_shuffle">Aleatorio</string>
     <string name="cd_back">Atrás</string>
     <string name="cd_queue">Cola</string>
+    <string name="cd_sleep_timer">Temporizador de apagado</string>
+
+    <!-- Sleep timer -->
+    <string name="sleep_timer_minutes">%1$d min</string>
+    <string name="sleep_timer_end_of_track">Al acabar la pista</string>
+    <string name="sleep_timer_off">Desactivar</string>
 
     <!-- States -->
     <string name="loading">Cargando…</string>

@@ -22,6 +22,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.Notes
 import androidx.compose.material.icons.automirrored.rounded.QueueMusic
+import androidx.compose.material.icons.rounded.Bedtime
 import androidx.compose.material.icons.rounded.Favorite
 import androidx.compose.material.icons.rounded.FavoriteBorder
 import androidx.compose.material.icons.rounded.KeyboardArrowDown
@@ -33,6 +34,8 @@ import androidx.compose.material.icons.rounded.Shuffle
 import androidx.compose.material.icons.rounded.SkipNext
 import androidx.compose.material.icons.rounded.SkipPrevious
 import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -58,6 +61,7 @@ import dev.themselg.jellymusic.ui.R
 import dev.themselg.jellymusic.player.NowPlaying
 import dev.themselg.jellymusic.player.PlaybackState
 import dev.themselg.jellymusic.player.RepeatMode
+import dev.themselg.jellymusic.player.SleepTimerState
 import dev.themselg.jellymusic.ui.components.CastButton
 import dev.themselg.jellymusic.ui.components.CoverArt
 import dev.themselg.jellymusic.ui.components.formatDuration
@@ -74,6 +78,7 @@ fun NowPlayingScreen(
     val nowPlaying by viewModel.nowPlaying.collectAsStateWithLifecycle()
     val playbackState by viewModel.playbackState.collectAsStateWithLifecycle()
     val isFavorite by viewModel.isFavorite.collectAsStateWithLifecycle()
+    val sleepTimer by viewModel.sleepTimer.collectAsStateWithLifecycle()
 
     Scaffold(
         topBar = {
@@ -100,6 +105,12 @@ fun NowPlayingScreen(
                     }
                 },
                 actions = {
+                    SleepTimerAction(
+                        state = sleepTimer,
+                        onSelectMinutes = { viewModel.setSleepTimer(it * 60_000L) },
+                        onSelectEndOfTrack = viewModel::setSleepTimerEndOfTrack,
+                        onCancel = viewModel::cancelSleepTimer,
+                    )
                     CastButton(modifier = Modifier.padding(end = 8.dp).size(40.dp))
                 },
                 // Outer Scaffold already pads for the status bar; don't add it twice.
@@ -286,6 +297,67 @@ private fun BottomActionButton(
             style = MaterialTheme.typography.titleSmall,
             modifier = Modifier.padding(start = 8.dp),
         )
+    }
+}
+
+/** Sleep-timer button + dropdown. Shows minutes left when counting down; tinted when armed. */
+@Composable
+private fun SleepTimerAction(
+    state: SleepTimerState,
+    onSelectMinutes: (Int) -> Unit,
+    onSelectEndOfTrack: () -> Unit,
+    onCancel: () -> Unit,
+) {
+    var expanded by remember { mutableStateOf(false) }
+    val active = state != SleepTimerState.Off
+    Box {
+        IconButton(onClick = { expanded = true }) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(
+                    Icons.Rounded.Bedtime,
+                    contentDescription = stringResource(R.string.cd_sleep_timer),
+                    tint = if (active) MaterialTheme.colorScheme.primary
+                    else MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                if (state is SleepTimerState.Running) {
+                    // Round up so the badge shows "1 min" rather than "0" in the final minute.
+                    val minutesLeft = ((state.remainingMs + 59_999L) / 60_000L).toInt()
+                    Text(
+                        text = stringResource(R.string.sleep_timer_minutes, minutesLeft),
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.padding(start = 2.dp),
+                    )
+                }
+            }
+        }
+        DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
+            listOf(15, 30, 45, 60).forEach { minutes ->
+                DropdownMenuItem(
+                    text = { Text(stringResource(R.string.sleep_timer_minutes, minutes)) },
+                    onClick = {
+                        onSelectMinutes(minutes)
+                        expanded = false
+                    },
+                )
+            }
+            DropdownMenuItem(
+                text = { Text(stringResource(R.string.sleep_timer_end_of_track)) },
+                onClick = {
+                    onSelectEndOfTrack()
+                    expanded = false
+                },
+            )
+            if (active) {
+                DropdownMenuItem(
+                    text = { Text(stringResource(R.string.sleep_timer_off)) },
+                    onClick = {
+                        onCancel()
+                        expanded = false
+                    },
+                )
+            }
+        }
     }
 }
 

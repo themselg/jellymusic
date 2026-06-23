@@ -52,6 +52,12 @@
     <string name="cd_shuffle">Shuffle</string>
     <string name="cd_back">Back</string>
     <string name="cd_queue">Queue</string>
+    <string name="cd_sleep_timer">Sleep timer</string>
+
+    <!-- Sleep timer -->
+    <string name="sleep_timer_minutes">%1$d min</string>
+    <string name="sleep_timer_end_of_track">End of track</string>
+    <string name="sleep_timer_off">Turn off</string>
 
     <!-- States -->
     <string name="loading">Loading…</string>
