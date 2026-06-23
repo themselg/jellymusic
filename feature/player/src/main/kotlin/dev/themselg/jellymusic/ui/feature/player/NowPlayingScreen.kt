@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -311,24 +312,33 @@ private fun SleepTimerAction(
     var expanded by remember { mutableStateOf(false) }
     val active = state != SleepTimerState.Off
     Box {
-        IconButton(onClick = { expanded = true }) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(
-                    Icons.Rounded.Bedtime,
-                    contentDescription = stringResource(R.string.cd_sleep_timer),
-                    tint = if (active) MaterialTheme.colorScheme.primary
-                    else MaterialTheme.colorScheme.onSurfaceVariant,
+        // A clickable Row (not IconButton) so the "15 min" badge has room on one line — an
+        // IconButton's fixed 48.dp width forces the icon + text to wrap.
+        Row(
+            modifier = Modifier
+                .clip(RoundedCornerShape(24.dp))
+                .clickable(onClick = { expanded = true })
+                .heightIn(min = 48.dp)
+                .padding(horizontal = 12.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Icon(
+                Icons.Rounded.Bedtime,
+                contentDescription = stringResource(R.string.cd_sleep_timer),
+                tint = if (active) MaterialTheme.colorScheme.primary
+                else MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+            if (state is SleepTimerState.Running) {
+                // Round up so the badge shows "1 min" rather than "0" in the final minute.
+                val minutesLeft = ((state.remainingMs + 59_999L) / 60_000L).toInt()
+                Text(
+                    text = stringResource(R.string.sleep_timer_minutes, minutesLeft),
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.primary,
+                    maxLines = 1,
+                    softWrap = false,
+                    modifier = Modifier.padding(start = 4.dp),
                 )
-                if (state is SleepTimerState.Running) {
-                    // Round up so the badge shows "1 min" rather than "0" in the final minute.
-                    val minutesLeft = ((state.remainingMs + 59_999L) / 60_000L).toInt()
-                    Text(
-                        text = stringResource(R.string.sleep_timer_minutes, minutesLeft),
-                        style = MaterialTheme.typography.labelMedium,
-                        color = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.padding(start = 2.dp),
-                    )
-                }
             }
         }
         DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
