@@ -8,6 +8,16 @@ import kotlinx.coroutines.flow.StateFlow
 
 enum class RepeatMode { OFF, ALL, ONE }
 
+/** State of the sleep timer, mirrored to the UI. */
+sealed interface SleepTimerState {
+    /** No timer set. */
+    data object Off : SleepTimerState
+    /** Counting down; [remainingMs] is the time left before playback pauses. */
+    data class Running(val remainingMs: Long) : SleepTimerState
+    /** Armed to pause when the current track ends naturally. */
+    data object EndOfTrack : SleepTimerState
+}
+
 /** The track currently loaded into the player, mirrored from the MediaController. */
 data class NowPlaying(
     val mediaId: String,
@@ -42,6 +52,7 @@ interface PlayerController {
     val nowPlaying: StateFlow<NowPlaying?>
     val playbackState: StateFlow<PlaybackState>
     val queue: StateFlow<List<NowPlaying>>
+    val sleepTimer: StateFlow<SleepTimerState>
 
     /** Replace the queue with [songs] and start playing from [startIndex]. */
     fun play(songs: List<Song>, startIndex: Int = 0)
@@ -62,4 +73,11 @@ interface PlayerController {
     fun removeQueueItem(index: Int)
     /** Clear the whole queue and stop playback. */
     fun clearQueue()
+
+    /** Start a sleep timer for [durationMs]; pauses playback when it elapses. <= 0 cancels. */
+    fun setSleepTimer(durationMs: Long)
+    /** Arm the sleep timer to pause when the current track ends. */
+    fun setSleepTimerEndOfTrack()
+    /** Cancel any active sleep timer. */
+    fun cancelSleepTimer()
 }

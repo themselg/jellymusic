@@ -36,6 +36,7 @@ import javax.inject.Singleton
 @Singleton
 class PlayerControllerImpl @Inject constructor(
     @ApplicationContext private val context: Context,
+    private val timer: SleepTimer,
 ) : PlayerController {
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
@@ -48,6 +49,8 @@ class PlayerControllerImpl @Inject constructor(
 
     private val _queue = MutableStateFlow<List<NowPlaying>>(emptyList())
     override val queue: StateFlow<List<NowPlaying>> = _queue.asStateFlow()
+
+    override val sleepTimer: StateFlow<SleepTimerState> = timer.state
 
     private var controller: MediaController? = null
     private var controllerFuture: ListenableFuture<MediaController>? = null
@@ -212,6 +215,12 @@ class PlayerControllerImpl @Inject constructor(
     override fun clearQueue() = withController { c ->
         c.clearMediaItems()
     }
+
+    override fun setSleepTimer(durationMs: Long) = timer.startDuration(durationMs)
+
+    override fun setSleepTimerEndOfTrack() = timer.armEndOfTrack()
+
+    override fun cancelSleepTimer() = timer.cancel()
 
     /** Tear down the controller; call if/when the singleton's lifetime ends. */
     fun release() {
